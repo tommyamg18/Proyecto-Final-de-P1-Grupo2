@@ -5,6 +5,7 @@ import java.util.Date;
 public class Plan {
 	private String codPlan;
 	private String nombre;
+	private String numero;
 	private double precio;
 	private Date apertura;
 	private Date diaPago;
@@ -18,6 +19,7 @@ public class Plan {
 	private int cantHdCanal;
 	private double minNacional;
 	private double minInter;
+	
 	public String getCodPlan() {
 		return codPlan;
 	}
@@ -108,12 +110,20 @@ public class Plan {
 	public void setMinInter(double minInter) {
 		this.minInter = minInter;
 	}
-	public Plan(String codPlan, String nombre, double precio, Date apertura, Date diaPago, Date diaCorte,
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+	
+	public Plan(String codPlan, String nombre, String numero, double precio, Date apertura, Date diaPago, Date diaCorte,
 			boolean internet, boolean voz, boolean cable, double velocidadSubida, double velocidadBajada, int cantCanal,
 			int cantHdCanal, double minNacional, double minInter) {
 		super();
 		this.codPlan = codPlan;
 		this.nombre = nombre;
+		this.numero = numero;
 		this.precio = precio;
 		this.apertura = apertura;
 		this.diaPago = diaPago;
@@ -128,6 +138,7 @@ public class Plan {
 		this.minNacional = minNacional;
 		this.minInter = minInter;
 	}
+	
 	
 	
 }
