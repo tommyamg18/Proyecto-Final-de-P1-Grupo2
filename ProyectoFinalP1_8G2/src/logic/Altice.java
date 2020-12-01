@@ -2,8 +2,6 @@ package logic;
                                                         
 import java.util.ArrayList;
 
-import logic.Cliente;
-import logic.Factura;
 
 public class Altice {
 	
@@ -117,7 +115,7 @@ public class Altice {
 		}
 	}
 	
-	private boolean chequeoCliente(String cedula) {//
+	private boolean chequeoCliente(String cedula) {
 		boolean aux = false;
 		boolean encontrado = false;
 		int i = 0;
