@@ -10,6 +10,10 @@ public class Altice {
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<Personal> miPersonal;
 	private static Altice altice = null;
+	public int planCod = 1;
+	public int factCod = 1;
+	public int auxPlanCod;
+	public int auxFactCod;
 	
 	public Altice() {
 		super();
@@ -158,6 +162,46 @@ public class Altice {
 	public void setMiPersonal(ArrayList<Personal> miPersonal) {
 		this.miPersonal = miPersonal;
 	}
+	public static Altice getAltice() {
+		return altice;
+	}
+
+	public static void setAltice(Altice altice) {
+		Altice.altice = altice;
+	}
+
+	public int getPlanCod() {
+		return planCod;
+	}
+
+	public void setPlanCod(int planCod) {
+		this.planCod = planCod;
+	}
+
+	public int getFactCod() {
+		return factCod;
+	}
+
+	public void setFactCod(int factCod) {
+		this.factCod = factCod;
+	}
+
+	public int getAuxPlanCod() {
+		return auxPlanCod;
+	}
+
+	public void setAuxPlanCod(int auxPlanCod) {
+		this.auxPlanCod = auxPlanCod;
+	}
+
+	public int getAuxFactCod() {
+		return auxFactCod;
+	}
+
+	public void setAuxFactCod(int auxFactCod) {
+		this.auxFactCod = auxFactCod;
+	}
+
 	public void eliminarCliente(Cliente aux) {
 		if(chequeoCliente(aux.getCedula())) {
 			int i = indexCliente(aux);

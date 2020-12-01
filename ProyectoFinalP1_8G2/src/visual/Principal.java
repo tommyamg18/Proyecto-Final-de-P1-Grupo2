@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logic.Altice;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -27,6 +30,10 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					int aux1 = 1;
+					int aux2 = 1;
+					Altice.getInstance().setPlanCod(aux1);
+					Altice.getInstance().setFactCod(aux2);
 					Principal frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
