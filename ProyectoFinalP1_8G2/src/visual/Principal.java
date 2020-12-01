@@ -12,6 +12,10 @@ import javax.swing.JMenu;
 
 public class Principal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2338171001859749383L;
 	private JPanel contentPane;
 
 	/**

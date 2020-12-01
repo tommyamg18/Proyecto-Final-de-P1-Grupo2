@@ -26,7 +26,10 @@ public class RegCliente extends JDialog {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5681658721527682954L;
+	/**
+	 * 
+	 */
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtCedula;
