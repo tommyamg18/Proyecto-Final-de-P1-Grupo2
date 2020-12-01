@@ -101,19 +101,6 @@ public class Altice {
 		misFacturas.add(factura);
 	}
 	
-	public void eliminarCliente(Cliente cliente) {
-		boolean encontrado = false;
-		int i = 0;
-		if(chequeoCliente(cliente.getCedula())) {
-		while(!encontrado && i<misClientes.size()){
-			if(misClientes.get(i).getCedula().equalsIgnoreCase(cliente.getCedula())) {
-				misClientes.remove(i);
-				encontrado = true;
-			}
-			i++;
-		}
-		}
-	}
 	
 	private boolean chequeoCliente(String cedula) {
 		boolean aux = false;
@@ -170,7 +157,32 @@ public class Altice {
 
 	public void setMiPersonal(ArrayList<Personal> miPersonal) {
 		this.miPersonal = miPersonal;
-	} 
+	}
+	public void eliminarCliente(Cliente aux) {
+		if(chequeoCliente(aux.getCedula())) {
+			int i = indexCliente(aux);
+			misClientes.remove(i);
+		}
+	}
+
+	private int indexCliente(Cliente aux) {
+		int index = 0;
+		boolean encontrado = false;
+		int i = 0;
+		while(!encontrado && i<misClientes.size()){
+			if(misClientes.get(i).getCedula().equalsIgnoreCase(aux.getCedula())) {
+				index = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return index;
+	}
+
+	public void insertarCliente(Cliente newCliente) {
+		misClientes.add(newCliente);
+	}
+	
 	
 	
 
