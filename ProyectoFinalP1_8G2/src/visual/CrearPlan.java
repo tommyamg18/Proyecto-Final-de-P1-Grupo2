@@ -11,8 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import logic.Altice;
+import logic.Plan;
+
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
@@ -36,12 +41,18 @@ public class CrearPlan extends JDialog {
     private JCheckBox chckbxInternet;
     private JCheckBox chckbxVoz;
     private JCheckBox chckbxCable;
-
-
+    private JTextField txtNumero;
+    private JComboBox cmbVelSub;
+    private JComboBox cmbVelBaj;
+    private JSpinner spnMinNac;
+    private JSpinner spnMinInt;
+    private JComboBox cmbCanal;
+    private JComboBox cmbCanalHD;
 
 	/**
 	 * Launch the application.
 	 */
+    
 	public static void main(String[] args) {
 		try {
 			CrearPlan dialog = new CrearPlan();
@@ -58,7 +69,7 @@ public class CrearPlan extends JDialog {
 	public CrearPlan() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\137349-200.png"));
 		setTitle("Creaci\u00F3n de Planes");
-		setBounds(100, 100, 779, 523);
+		setBounds(100, 100, 779, 595);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -86,11 +97,11 @@ public class CrearPlan extends JDialog {
 			txtCodPlan.setColumns(10);
 			
 			JLabel lblNewLabel_1 = new JLabel("Nombre:");
-			lblNewLabel_1.setBounds(241, 30, 90, 14);
+			lblNewLabel_1.setBounds(241, 30, 46, 14);
 			panel_1.add(lblNewLabel_1);
 			
 			txtNombre = new JTextField();
-			txtNombre.setBounds(300, 27, 143, 20);
+			txtNombre.setBounds(305, 27, 116, 20);
 			panel_1.add(txtNombre);
 			txtNombre.setColumns(10);
 			
@@ -158,8 +169,8 @@ public class CrearPlan extends JDialog {
 			lblNewLabel_4.setBounds(40, 28, 131, 14);
 			panel_internet.add(lblNewLabel_4);
 			
-			JComboBox cmbVelSub = new JComboBox();
-			cmbVelSub.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "1.5 Mbps", "2 Mbps"}));
+			cmbVelSub = new JComboBox();
+			cmbVelSub.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "1.5 Mbps", "2 Mbps", "5 Mbps", "10 Mbps"}));
 			cmbVelSub.setBounds(154, 25, 151, 20);
 			panel_internet.add(cmbVelSub);
 			
@@ -167,40 +178,49 @@ public class CrearPlan extends JDialog {
 			lblNewLabel_5.setBounds(430, 28, 124, 14);
 			panel_internet.add(lblNewLabel_5);
 			
-			JComboBox cmbVelBaj = new JComboBox();
-			cmbVelBaj.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "3 Mbps", "5 Mbps"}));
+			cmbVelBaj = new JComboBox();
+			cmbVelBaj.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "3 Mbps", "5 Mbps", "15 Mbps", "25 Mbps", "50 Mbps"}));
 			cmbVelBaj.setBounds(544, 25, 151, 20);
 			panel_internet.add(cmbVelBaj);
 			
 			panel_voz = new JPanel();
 			panel_voz.setVisible(false);
 			panel_voz.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicio de Voz", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_voz.setBounds(10, 230, 733, 70);
+			panel_voz.setBounds(10, 230, 733, 106);
 			panel.add(panel_voz);
 			panel_voz.setLayout(null);
 			
 			JLabel lblNewLabel_6 = new JLabel("Minutos Nacionales:");
-			lblNewLabel_6.setBounds(40, 29, 121, 14);
+			lblNewLabel_6.setBounds(42, 67, 121, 14);
 			panel_voz.add(lblNewLabel_6);
 			
 			JLabel lblNewLabel_7 = new JLabel("Minutos Internacionales:");
-			lblNewLabel_7.setBounds(418, 29, 179, 14);
+			lblNewLabel_7.setBounds(418, 67, 179, 14);
 			panel_voz.add(lblNewLabel_7);
 			
-			JSpinner spnMinNac = new JSpinner();
+		    spnMinNac = new JSpinner();
 			spnMinNac.setModel(new SpinnerNumberModel(200, 200, 800, 1));
-			spnMinNac.setBounds(171, 26, 84, 20);
+			spnMinNac.setBounds(173, 64, 84, 20);
 			panel_voz.add(spnMinNac);
 			
-			JSpinner spnMinInt = new JSpinner();
+			spnMinInt = new JSpinner();
 			spnMinInt.setModel(new SpinnerNumberModel(200, 200, 400, 1));
-			spnMinInt.setBounds(568, 26, 76, 20);
+			spnMinInt.setBounds(569, 64, 76, 20);
 			panel_voz.add(spnMinInt);
+			
+			JLabel lblNewLabel_2 = new JLabel("N\u00FAmero:");
+			lblNewLabel_2.setBounds(239, 29, 84, 14);
+			panel_voz.add(lblNewLabel_2);
+			
+			txtNumero = new JTextField();
+			txtNumero.setBounds(315, 26, 165, 20);
+			panel_voz.add(txtNumero);
+			txtNumero.setColumns(10);
 			
 			panel_cable = new JPanel();
 			panel_cable.setVisible(false);
 			panel_cable.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicio de Cable", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_cable.setBounds(10, 311, 733, 65);
+			panel_cable.setBounds(10, 352, 733, 65);
 			panel.add(panel_cable);
 			panel_cable.setLayout(null);
 			
@@ -212,24 +232,25 @@ public class CrearPlan extends JDialog {
 			lblNewLabel_9.setBounds(419, 28, 142, 14);
 			panel_cable.add(lblNewLabel_9);
 			
-			JComboBox cmbCanal = new JComboBox();
-			cmbCanal.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "170\t", "193", "241", "284"}));
+			cmbCanal = new JComboBox();
+			cmbCanal.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "69", "119", "170\t", "193", "241", "284"}));
 			cmbCanal.setBounds(177, 25, 142, 20);
 			panel_cable.add(cmbCanal);
 			
-			JComboBox cmbCanalHD = new JComboBox();
-			cmbCanalHD.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "5", "23", "57"}));
+			cmbCanalHD = new JComboBox();
+			cmbCanalHD.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "5", "20", "23", "57"}));
 			cmbCanalHD.setBounds(570, 25, 136, 20);
 			panel_cable.add(cmbCanalHD);
 			
-			JLabel lblNewLabel_3 = new JLabel("Precio:");
-			lblNewLabel_3.setBounds(555, 401, 46, 14);
+			JLabel lblNewLabel_3 = new JLabel("Precio RD$:");
+			lblNewLabel_3.setBounds(526, 459, 78, 14);
 			panel.add(lblNewLabel_3);
 			
 			txtPrecioPlan = new JTextField();
-			txtPrecioPlan.setBounds(606, 398, 137, 20);
+			txtPrecioPlan.setBounds(606, 456, 137, 20);
 			panel.add(txtPrecioPlan);
 			txtPrecioPlan.setColumns(10);
+			clear();
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -237,6 +258,42 @@ public class CrearPlan extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCrear = new JButton("Crear");
+				btnCrear.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Plan aux = null;
+						String codPlan = txtCodPlan.getText();
+						String nombre = txtNombre.getText();
+						String numero = txtNumero.getText();
+						double precio = Double.valueOf(txtPrecioPlan.getText());
+						boolean internet = false;
+						boolean voz = false;
+						boolean cable = false;
+						String velocidadSubida = cmbVelSub.getSelectedItem().toString();
+						String velocidadBajada = cmbVelBaj.getSelectedItem().toString();
+						int cantCanal = new Integer(cmbCanal.getSelectedItem().toString());
+						int cantHdCanal = new Integer(cmbCanalHD.getSelectedItem().toString());
+						double minNac = new Double(spnMinNac.getValue().toString());
+						double minInt = new Double(spnMinInt.getValue().toString());
+						
+						if(chckbxInternet.isSelected()) {
+							internet = true;
+						
+						}
+						
+                        if(chckbxVoz.isSelected()) {
+							voz = true;
+						}
+                        
+                         if(chckbxCable.isSelected()) {
+ 							cable = true;
+
+						}
+                         aux = new Plan(codPlan, nombre, numero, precio, null, null, null,internet, voz,cable, velocidadSubida, velocidadBajada, cantCanal,cantHdCanal, minNac, minInt);
+                         Altice.getInstance().crearPlan(aux);
+ 					     JOptionPane.showMessageDialog(null, "Plan registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+					}
+				});
 				btnCrear.setActionCommand("OK");
 				buttonPane.add(btnCrear);
 				getRootPane().setDefaultButton(btnCrear);
@@ -252,5 +309,10 @@ public class CrearPlan extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+	}
+
+	public void clear() {
+      txtCodPlan.setText("P-"+Altice.getInstance().getPlanCod());
+      
 	}
 }

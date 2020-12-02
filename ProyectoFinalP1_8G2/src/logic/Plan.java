@@ -13,8 +13,8 @@ public class Plan {
 	private boolean internet;
 	private boolean voz;
 	private boolean cable;
-	private double velocidadSubida;
-	private double velocidadBajada;
+	private String velocidadSubida;
+	private String velocidadBajada;
 	private int cantCanal;
 	private int cantHdCanal;
 	private double minNacional;
@@ -74,18 +74,7 @@ public class Plan {
 	public void setCable(boolean cable) {
 		this.cable = cable;
 	}
-	public double getVelocidadSubida() {
-		return velocidadSubida;
-	}
-	public void setVelocidadSubida(double velocidadSubida) {
-		this.velocidadSubida = velocidadSubida;
-	}
-	public double getVelocidadBajada() {
-		return velocidadBajada;
-	}
-	public void setVelocidadBajada(double velocidadBajada) {
-		this.velocidadBajada = velocidadBajada;
-	}
+	
 	public int getCantCanal() {
 		return cantCanal;
 	}
@@ -117,8 +106,20 @@ public class Plan {
 		this.numero = numero;
 	}
 	
+	public String getVelocidadSubida() {
+		return velocidadSubida;
+	}
+	public void setVelocidadSubida(String velocidadSubida) {
+		this.velocidadSubida = velocidadSubida;
+	}
+	public String getVelocidadBajada() {
+		return velocidadBajada;
+	}
+	public void setVelocidadBajada(String velocidadBajada) {
+		this.velocidadBajada = velocidadBajada;
+	}
 	public Plan(String codPlan, String nombre, String numero, double precio, Date apertura, Date diaPago, Date diaCorte,
-			boolean internet, boolean voz, boolean cable, double velocidadSubida, double velocidadBajada, int cantCanal,
+			boolean internet, boolean voz, boolean cable, String velocidadSubida, String velocidadBajada, int cantCanal,
 			int cantHdCanal, double minNacional, double minInter) {
 		super();
 		this.codPlan = codPlan;
