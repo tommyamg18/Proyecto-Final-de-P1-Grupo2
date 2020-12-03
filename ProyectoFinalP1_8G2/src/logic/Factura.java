@@ -17,6 +17,14 @@ public class Factura {
 		this.misPlanes = new ArrayList<>();
 	}
 	
+	
+
+	public Factura(Cliente client, Factura fact1) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public double calTotal() {
 		double total = 0;
 		

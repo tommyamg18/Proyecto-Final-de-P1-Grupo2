@@ -1,10 +1,16 @@
 package logic;
 
+import java.util.ArrayList;
+
+import logic.Plan;
+
 public class Cliente {
 	private String cedula;
 	private String nombre;
 	private String direccion;
 	private String telefono;
+	private ArrayList<Plan> misPlanes;
+
 	public String getCedula() {
 		return cedula;
 	}

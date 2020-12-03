@@ -2,6 +2,8 @@ package logic;
                                                         
 import java.util.ArrayList;
 
+import logic.Factura;
+
 
 public class Altice {
 	
@@ -10,6 +12,9 @@ public class Altice {
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<Personal> miPersonal;
 	private static Altice altice = null;
+	public static Cliente miCliente;
+	public static Factura factura;
+
 	public int planCod = 1;
 	public int factCod = 1;
 	public int auxPlanCod;
