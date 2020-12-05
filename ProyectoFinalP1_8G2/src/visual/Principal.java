@@ -102,13 +102,29 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
-		JMenu mnNewMenu_3 = new JMenu("Administracion");
+		JMenu mnNewMenu_3 = new JMenu("Personal");
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar empleados");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar personal");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegPersonal regpersonal = new RegPersonal();
+				regpersonal.setModal(true);
+				regpersonal.setLocationRelativeTo(null);
+				regpersonal.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_6);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar empleados");
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar personal");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarPersonal listpersonal = new ListarPersonal();
+				listpersonal.setModal(true);
+				listpersonal.setLocationRelativeTo(null);
+				listpersonal.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_4 = new JMenu("Estadisticas");

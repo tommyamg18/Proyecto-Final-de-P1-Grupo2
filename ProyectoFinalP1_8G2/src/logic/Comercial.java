@@ -2,25 +2,31 @@ package logic;
 
 public class Comercial extends Personal {
 
-	private double extraMenCom;
+	private int cantventas;
 	
-	public Comercial(String cedula, String nombre, float salariobase, int antiguedadAnnos, int diasTrabajados,
-			double salarioMes, double extraMenCom) {
-		super(cedula, nombre, salariobase, antiguedadAnnos, diasTrabajados, salarioMes);
-		this.extraMenCom = extraMenCom;
+	
+	public Comercial(String cedula, String nombre, String telefono, String direccion, String password,
+			double salarioMes, int cantventas) {
+		super(cedula, nombre, telefono, direccion, password, salarioMes);
+		this.cantventas = cantventas;
 	}
 
-	public double getExtraMen() {
-		return extraMenCom;
-	}
-
-	public void setExtraMen(double extraMenCom) {
-		this.extraMenCom = extraMenCom;
-	}
 
 	@Override
 	public double CalSalario() {
-		return 0;
+		double salariototal = 0;
+		salariototal = (salarioMes + (cantventas*0.10));
+		return salariototal;
+	}
+
+
+	public int getCantventas() {
+		return cantventas;
+	}
+
+
+	public void setCantventas(int cantventas) {
+		this.cantventas = cantventas;
 	}
 
 }

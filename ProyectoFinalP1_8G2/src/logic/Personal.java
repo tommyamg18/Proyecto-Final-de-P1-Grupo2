@@ -4,19 +4,19 @@ public abstract class Personal {
 
 	protected String cedula;
 	protected String nombre;
-	protected float salariobase;
-	protected int AntiguedadAnnos;
-	protected int diasTrabajados;
+	protected String telefono;
+	protected String direccion;
+	protected String password;
 	protected double salarioMes;
 	
-	public Personal(String cedula, String nombre, float salariobase, int antiguedadAnnos, int diasTrabajados,
+	public Personal(String cedula, String nombre, String telefono, String direccion, String password,
 			double salarioMes) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
-		this.salariobase = salariobase;
-		this.AntiguedadAnnos = antiguedadAnnos;
-		this.diasTrabajados = diasTrabajados;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.password = password;
 		this.salarioMes = salarioMes;
 	}
 
@@ -36,28 +36,28 @@ public abstract class Personal {
 		this.nombre = nombre;
 	}
 
-	public float getSalariobase() {
-		return salariobase;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setSalariobase(float salariobase) {
-		this.salariobase = salariobase;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
-	public int getAntiguedadAnnos() {
-		return AntiguedadAnnos;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setAntiguedadAnnos(int antiguedadAnnos) {
-		AntiguedadAnnos = antiguedadAnnos;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	public int getDiasTrabajados() {
-		return diasTrabajados;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setDiasTrabajados(int diasTrabajados) {
-		this.diasTrabajados = diasTrabajados;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public double getSalarioMes() {
@@ -69,4 +69,5 @@ public abstract class Personal {
 	}
 	
 	public abstract double CalSalario();
-}
+	
+}	

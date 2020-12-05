@@ -2,25 +2,29 @@ package logic;
 
 public class Administrativo extends Personal {
 
-	private double extraMenAdm;
+	private String puesto;
 	
-	public Administrativo(String cedula, String nombre, float salariobase, int antiguedadAnnos, int diasTrabajados,
-			double salarioMes, double extraMenAdm) {
-		super(cedula, nombre, salariobase, antiguedadAnnos, diasTrabajados, salarioMes);
-		this.extraMenAdm = extraMenAdm;
-	}
 
-	public double getExtraMen() {
-		return extraMenAdm;
-	}
-
-	public void setExtraMen(double extraMenAdm) {
-		this.extraMenAdm = extraMenAdm;
+	public Administrativo(String cedula, String nombre, String telefono, String direccion, String password,
+			double salarioMes, String puesto) {
+		super(cedula, nombre, telefono, direccion, password, salarioMes);
+		this.puesto = puesto;
 	}
 
 	@Override
 	public double CalSalario() {
-		return 0;
+		double salario = 0;
+		salario = salarioMes;
+		return salario;
+	}
+
+
+	public String getPuesto() {
+		return puesto;
+	}
+
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
 	}
 
 }
