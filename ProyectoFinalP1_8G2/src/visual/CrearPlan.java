@@ -1,3 +1,4 @@
+
 package visual;
 
 import java.awt.BorderLayout;
@@ -97,7 +98,7 @@ public class CrearPlan extends JDialog {
 			txtCodPlan.setColumns(10);
 			
 			JLabel lblNewLabel_1 = new JLabel("Nombre:");
-			lblNewLabel_1.setBounds(241, 30, 46, 14);
+			lblNewLabel_1.setBounds(241, 30, 72, 14);
 			panel_1.add(lblNewLabel_1);
 			
 			txtNombre = new JTextField();
@@ -264,34 +265,44 @@ public class CrearPlan extends JDialog {
 						String codPlan = txtCodPlan.getText();
 						String nombre = txtNombre.getText();
 						String numero = txtNumero.getText();
-						double precio = Double.valueOf(txtPrecioPlan.getText());
+					    double precio = 0;
+						precio = Double.valueOf(txtPrecioPlan.getText());
 						boolean internet = false;
 						boolean voz = false;
 						boolean cable = false;
-						String velocidadSubida = cmbVelSub.getSelectedItem().toString();
-						String velocidadBajada = cmbVelBaj.getSelectedItem().toString();
-						int cantCanal = new Integer(cmbCanal.getSelectedItem().toString());
-						int cantHdCanal = new Integer(cmbCanalHD.getSelectedItem().toString());
-						double minNac = new Double(spnMinNac.getValue().toString());
-						double minInt = new Double(spnMinInt.getValue().toString());
-						
+			
 						if(chckbxInternet.isSelected()) {
+							String velocidadSubida = cmbVelSub.getSelectedItem().toString();
+							String velocidadBajada = cmbVelBaj.getSelectedItem().toString();
 							internet = true;
-						
+	                         aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, velocidadSubida, velocidadBajada, -1,-1, -1, -1);
+
 						}
 						
                         if(chckbxVoz.isSelected()) {
+                        	double minNac = 0;
+    						minNac = new Double(spnMinNac.getValue().toString());
+    						double minInt = 0;
+    						minInt = new Double(spnMinInt.getValue().toString());
 							voz = true;
+	                        aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, null, null, -1,-1, minNac, minInt);
+
 						}
                         
                          if(chckbxCable.isSelected()) {
+                        	int cantCanal = 0;
+     						cantCanal = new Integer(cmbCanal.getSelectedItem().toString());
+     						int cantHdCanal = 0;
+     						cantHdCanal = new Integer(cmbCanalHD.getSelectedItem().toString());
  							cable = true;
+	                        aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, null, null, cantCanal,cantHdCanal, -1, -1);
+
 
 						}
-                         aux = new Plan(codPlan, nombre, numero, precio, null, null, null,internet, voz,cable, velocidadSubida, velocidadBajada, cantCanal,cantHdCanal, minNac, minInt);
+                         
                          Altice.getInstance().crearPlan(aux);
  					     JOptionPane.showMessageDialog(null, "Plan registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-
+                         clear();
 					}
 				});
 				btnCrear.setActionCommand("OK");
@@ -313,6 +324,26 @@ public class CrearPlan extends JDialog {
 
 	public void clear() {
       txtCodPlan.setText("P-"+Altice.getInstance().getPlanCod());
+      txtNombre.setText("");
+	  txtNumero.setText("");
+	  txtPrecioPlan.setText("");
+	  cmbVelSub.setSelectedIndex(0);
+	  cmbVelBaj.setSelectedIndex(0);
+	  cmbCanal.setSelectedIndex(0);
+	  cmbCanalHD.setSelectedIndex(0);
+	  spnMinNac.setValue(Double.valueOf("200"));
+	  spnMinInt.setValue(Double.valueOf("200"));
+	  chckbxInternet.setSelected(false);
+	  chckbxVoz.setSelected(false);
+	  chckbxCable.setSelected(false);
+	  panel_internet.setVisible(false);
+	  panel_voz.setVisible(false);
+	  panel_cable.setVisible(false);
+
+
+
+		
+
       
 	}
 }

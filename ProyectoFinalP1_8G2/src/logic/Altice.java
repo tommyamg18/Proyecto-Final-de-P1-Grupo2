@@ -94,6 +94,7 @@ public class Altice {
 	
 	public void crearPlan(Plan plan) {
 		misPlanes.add(plan);
+		planCod++;
 	}
 	
 	public void registrarCliente(Cliente cliente) {
@@ -125,7 +126,18 @@ public class Altice {
 		return aux;
 	}
 	
-	
+	public void eliminarPlan(Plan aux) {
+		int i = 0;
+		boolean encontrado = false;
+		while(!encontrado && i<misPlanes.size()) {
+			if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(aux.getCodPlan())) {
+				misPlanes.remove(misPlanes.get(i));
+				encontrado = true;
+			} else {
+				i++;
+			}
+		}
+	}
 	
 	
 	public ArrayList<String> consultAlServicioMs(){
