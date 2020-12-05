@@ -107,7 +107,7 @@ public class ListarPlan extends JDialog {
 				btnVer.setEnabled(false);
 				btnVer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						CrearPlan newPlan = new CrearPlan(1,aux);
+						CrearPlan newPlan = new CrearPlan(1,aux,null);
 						newPlan.setVisible(true);
 						llenarTabla();
 						btnVer.setEnabled(false);

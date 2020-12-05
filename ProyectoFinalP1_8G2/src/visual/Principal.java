@@ -72,6 +72,14 @@ public class Principal extends JFrame {
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Crear");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConfirmacionCliente nue = new ConfirmacionCliente();
+				nue.setVisible(true);
+				nue.setLocationRelativeTo(null);
+				nue.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Pago");
@@ -82,8 +90,8 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CrearPlan crearPlan = new CrearPlan(0,null);
+			public void actionPerformed(ActionEvent e) { 
+				CrearPlan crearPlan = new CrearPlan(0,null,null);
 				crearPlan.setModal(true);
 				crearPlan.setLocationRelativeTo(null);
 				crearPlan.setVisible(true);

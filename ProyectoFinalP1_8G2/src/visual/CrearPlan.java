@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import logic.Altice;
+import logic.Cliente;
+import logic.Factura;
 import logic.Plan;
 
 import javax.swing.JSpinner;
@@ -52,6 +54,12 @@ public class CrearPlan extends JDialog {
     private JButton btnCrear;
     private JButton btnCancelar;
     private Plan viejoPlan;
+    private JTextField vSubMod;
+    private JTextField vBajMod;
+    private JTextField cantN;
+    private JTextField cantHd;
+    private JTextField mintN;
+    private JTextField minIn;
 
 	/**
 	 * Launch the application.
@@ -60,7 +68,7 @@ public class CrearPlan extends JDialog {
 	public static void main(String[] args) {
 		try {
 			
-			CrearPlan dialog = new CrearPlan(0, null);
+			CrearPlan dialog = new CrearPlan(0, null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -71,7 +79,7 @@ public class CrearPlan extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearPlan(int mod,Plan viejoPlan) {
+	public CrearPlan(int mod,Plan viejoPlan, Cliente miCliente) {
 		this.viejoPlan=viejoPlan;
 		//setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\137349-200.png"));
 		String titulo="Creaci\u00F3n de planeas";
@@ -81,6 +89,9 @@ public class CrearPlan extends JDialog {
 			canVer="Cerrar";
 		}
 		if(mod==2) {
+			titulo= "Detalle de Plan de "+miCliente.getNombre();
+			canVer="Cerrar";
+		}if(mod==3) {
 			titulo= "Modificación de Planes";
 		}
 		setModal(true);
@@ -200,6 +211,21 @@ public class CrearPlan extends JDialog {
 			cmbVelBaj.setBounds(544, 25, 151, 20);
 			panel_internet.add(cmbVelBaj);
 			
+			vSubMod = new JTextField();
+			vSubMod.setEditable(false);
+			vSubMod.setVisible(false);
+			vSubMod.setText("");
+			vSubMod.setColumns(10);
+			vSubMod.setBounds(154, 25, 151, 20);
+			panel_internet.add(vSubMod);
+			
+			vBajMod = new JTextField();
+			vBajMod.setEditable(false);
+			vBajMod.setVisible(false);
+			vBajMod.setBounds(544, 25, 151, 20);
+			panel_internet.add(vBajMod);
+			vBajMod.setColumns(10);
+			
 			panel_voz = new JPanel();
 			panel_voz.setVisible(false);
 			panel_voz.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicio de Voz", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -225,14 +251,33 @@ public class CrearPlan extends JDialog {
 			spnMinInt.setBounds(569, 64, 76, 20);
 			panel_voz.add(spnMinInt);
 			
-			JLabel lblNewLabel_2 = new JLabel("N\u00FAmero:");
-			lblNewLabel_2.setBounds(239, 29, 84, 14);
-			panel_voz.add(lblNewLabel_2);
+			JLabel lbNumero = new JLabel("N\u00FAmero:");
+			lbNumero.setVisible(false);
+			lbNumero.setBounds(239, 29, 84, 14);
+			panel_voz.add(lbNumero);
 			
 			txtNumero = new JTextField();
+			txtNumero.setEditable(false);
+			txtNumero.setVisible(false);
 			txtNumero.setBounds(315, 26, 165, 20);
 			panel_voz.add(txtNumero);
 			txtNumero.setColumns(10);
+			
+			mintN = new JTextField();
+			mintN.setEditable(false);
+			mintN.setVisible(false);
+			mintN.setText("");
+			mintN.setColumns(10);
+			mintN.setBounds(173, 64, 84, 20);
+			panel_voz.add(mintN);
+			
+			minIn = new JTextField();
+			minIn.setEditable(false);
+			minIn.setVisible(false);
+			minIn.setText("");
+			minIn.setColumns(10);
+			minIn.setBounds(569, 64, 76, 20);
+			panel_voz.add(minIn);
 			
 			panel_cable = new JPanel();
 			panel_cable.setVisible(false);
@@ -259,6 +304,20 @@ public class CrearPlan extends JDialog {
 			cmbCanalHD.setBounds(570, 25, 136, 20);
 			panel_cable.add(cmbCanalHD);
 			
+			cantN = new JTextField();
+			cantN.setVisible(false);
+			cantN.setText("");
+			cantN.setColumns(10);
+			cantN.setBounds(177, 25, 142, 20);
+			panel_cable.add(cantN);
+			
+			cantHd = new JTextField();
+			cantHd.setVisible(false);
+			cantHd.setText("");
+			cantHd.setColumns(10);
+			cantHd.setBounds(570, 25, 136, 20);
+			panel_cable.add(cantHd);
+			
 			JLabel lblNewLabel_3 = new JLabel("Precio RD$:");
 			lblNewLabel_3.setBounds(526, 459, 78, 14);
 			panel.add(lblNewLabel_3);
@@ -271,7 +330,6 @@ public class CrearPlan extends JDialog {
 			if(viejoPlan!=null) {
 				 txtCodPlan.setText(viejoPlan.getCodPlan());
 			      txtNombre.setText(viejoPlan.getNombre());
-				  txtNumero.setText(viejoPlan.getNumero());
 				  txtPrecioPlan.setText(String.valueOf(viejoPlan.getPrecio()));
 				  modifCant();
 				  spnMinNac.setValue(viejoPlan.getMinNacional());
@@ -294,6 +352,11 @@ public class CrearPlan extends JDialog {
 				  }
 				  
 			}
+			if(miCliente!=null) {
+				  txtNumero.setText(viejoPlan.getNumero());
+				  txtNumero.setVisible(true);
+				  txtNumero.setEditable(false);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -306,7 +369,6 @@ public class CrearPlan extends JDialog {
 						Plan aux = null;
 						String codPlan = txtCodPlan.getText();
 						String nombre = txtNombre.getText();
-						String numero = txtNumero.getText();
 					    double precio = 0;
 						precio = Double.valueOf(txtPrecioPlan.getText());
 						boolean internet = false;
@@ -334,7 +396,7 @@ public class CrearPlan extends JDialog {
      						cantHdCanal = new Integer(cmbCanalHD.getSelectedItem().toString());
  							cable = true;
 						}
-                         aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, velocidadSubida, velocidadBajada, cantCanal,cantHdCanal, minNac, minInt);
+                         aux = new Plan(codPlan, nombre, "0", precio,internet, voz,cable, velocidadSubida, velocidadBajada, cantCanal,cantHdCanal, minNac, minInt);
                          Altice.getInstance().crearPlan(aux);
  					     JOptionPane.showMessageDialog(null, "Plan registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                          clear();
@@ -357,19 +419,77 @@ public class CrearPlan extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 			}
-		if(viejoPlan!=null) {
+		if(viejoPlan!=null & mod==1) {
 			  btnCrear.setEnabled(false);
 			  btnCrear.setVisible(false);
-			  txtNumero.setEditable(false);
 			  txtNombre.setEditable(false);
 			  txtPrecioPlan.setEditable(false);
+			  
+			  cmbVelSub.setVisible(false);
 			  cmbVelSub.setEnabled(false);
+			  vSubMod.setText(viejoPlan.getVelocidadSubida());
+			  vSubMod.setVisible(true);
+			  cmbVelBaj.setVisible(false);
 			  cmbVelBaj.setEnabled(false);
+			  vBajMod.setText(viejoPlan.getVelocidadBajada());
+			  vBajMod.setVisible(true);
 			  cmbCanal.setEnabled(false);
+			  cmbCanal.setVisible(false);
+			  cantN.setText(String.valueOf(viejoPlan.getCantCanal()));
+			  cantN.setVisible(true);
 			  cmbCanalHD.setEnabled(false);
+			  cmbCanalHD.setVisible(false);
+			  cantHd.setText(String.valueOf(viejoPlan.getCantHdCanal()));
+			  cantHd.setVisible(true);
+			  
 			  spnMinNac.setEnabled(false);
+			  spnMinNac.setVisible(false);
+			  mintN.setVisible(true);
+			  mintN.setText(spnMinNac.getValue().toString());
+			  
+			  spnMinInt.setVisible(false);
+			  minIn.setVisible(true);
+			  minIn.setText(spnMinInt.getValue().toString());
 			  spnMinInt.setEnabled(false);
+			  
 			}
+		if(viejoPlan!=null & mod==2) {
+			  btnCrear.setEnabled(false);
+			  btnCrear.setVisible(false);
+			  txtNombre.setEditable(false);
+			  txtNumero.setVisible(true);
+			  txtNumero.setText(viejoPlan.getNumero());
+			  txtPrecioPlan.setEditable(false);
+			  
+			  cmbVelSub.setVisible(false);
+			  cmbVelSub.setEnabled(false);
+			  vSubMod.setText(viejoPlan.getVelocidadSubida());
+			  vSubMod.setVisible(true);
+			  cmbVelBaj.setVisible(false);
+			  cmbVelBaj.setEnabled(false);
+			  vBajMod.setText(viejoPlan.getVelocidadBajada());
+			  vBajMod.setVisible(true);
+			  cmbCanal.setEnabled(false);
+			  cmbCanal.setVisible(false);
+			  cantN.setText(String.valueOf(viejoPlan.getCantCanal()));
+			  cantN.setVisible(true);
+			  cmbCanalHD.setEnabled(false);
+			  cmbCanalHD.setVisible(false);
+			  cantHd.setText(String.valueOf(viejoPlan.getCantHdCanal()));
+			  cantHd.setVisible(true);
+			  
+			  spnMinNac.setEnabled(false);
+			  spnMinNac.setVisible(false);
+			  mintN.setVisible(true);
+			  mintN.setText(spnMinNac.getValue().toString());
+			  
+			  spnMinInt.setVisible(false);
+			  minIn.setVisible(true);
+			  minIn.setText(spnMinInt.getValue().toString());
+			  spnMinInt.setEnabled(false);
+			  
+			}
+
 	
 	}
 

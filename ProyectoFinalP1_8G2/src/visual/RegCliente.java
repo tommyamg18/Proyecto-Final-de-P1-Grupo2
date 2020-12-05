@@ -57,7 +57,7 @@ public class RegCliente extends JDialog {
 	 * @param ring 
 	 */
 	public RegCliente(int i, String cedula) {
-		if(cedula== null) {
+		if(i== 0) {
 			auxTitle="Agregar";
 		}else {
 			auxTitle="Modificar";
@@ -121,6 +121,9 @@ public class RegCliente extends JDialog {
 				txtNombre.setText(cliente.getNombre());
 				txtDireccion.setText(cliente.getDireccion());
 			}
+			if(i==0 & cedula!=null) {
+				txtCedula.setText(cedula);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -145,8 +148,8 @@ public class RegCliente extends JDialog {
 							else {
 								Cliente newCliente = new Cliente(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
 								Altice.getInstance().insertarCliente(newCliente);
-					//			RegFactura newFac = new RegFactura(0,newCliente);
-						//		newFac.setVisible(true);
+								Facturacion newFact = new Facturacion(0,newCliente);
+								newFact.setVisible(true);
 								dispose();
 							}
 					}else if(i==1) {
