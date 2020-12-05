@@ -112,6 +112,14 @@ public class ListaFactura extends JDialog {
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
+			
+			try {
+				MaskFormatter formatoTelefono= new MaskFormatter("(###)-###-####");
+				formatoTelefono.setPlaceholderCharacter('_');
+				txtTelefono = new JFormattedTextField(formatoTelefono);			
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			txtBuscar.setBounds(66, 38, 163, 23);
 			panel_1.add(txtBuscar);
 			txtBuscar.setColumns(10);
@@ -170,6 +178,7 @@ public class ListaFactura extends JDialog {
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
+			
 			txtCedula.setEditable(false);
 			txtCedula.setColumns(10);
 			txtCedula.setBounds(66, 24, 174, 23);
