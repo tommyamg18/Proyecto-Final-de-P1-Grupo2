@@ -57,15 +57,6 @@ public class Principal extends JFrame {
 		JMenu mnNewMenu = new JMenu("Clientes");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Crear");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				RegCliente newClient = new RegCliente(0, null);
-				newClient.setVisible(true);
-			}
-		});
-		mnNewMenu.add(mntmNewMenuItem);
-		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar ");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,7 +83,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrearPlan crearPlan = new CrearPlan();
+				CrearPlan crearPlan = new CrearPlan(0,null);
 				crearPlan.setModal(true);
 				crearPlan.setLocationRelativeTo(null);
 				crearPlan.setVisible(true);

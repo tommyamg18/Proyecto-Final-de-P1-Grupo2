@@ -2,9 +2,6 @@ package logic;
                                                         
 import java.util.ArrayList;
 
-import logic.Factura;
-
-
 public class Altice {
 	
 	private ArrayList<Cliente> misClientes;

@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -17,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 import logic.Altice;
 import logic.Plan;
 
-
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,12 +26,17 @@ import java.awt.Toolkit;
 
 public class ListarPlan extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3884285610758462580L;
 	private final JPanel contentPanel = new JPanel();
     private JButton btnVer;
 	private JButton btnEliminar;
     private JButton btnCancelar;
     private JTable table;
 	public static DefaultTableModel modelo;
+	public Plan aux=null;
 	public static Object[] filas;
 	private JPanel panel;
 	private String cod;
@@ -82,7 +87,8 @@ public class ListarPlan extends JDialog {
 							int seleccion = table.getSelectedRow();
 							if(seleccion!=-1){
 							  btnEliminar.setEnabled(true);
-							  cod = (String)table.getModel().getValueAt(seleccion, 0);
+							  btnVer.setEnabled(true);
+								aux = Altice.getInstance().consultarPlan((String)modelo.getValueAt(seleccion, 0));
 							}
 						}
 					});
@@ -98,10 +104,20 @@ public class ListarPlan extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnVer = new JButton("Ver");
+				btnVer.setEnabled(false);
+				btnVer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						CrearPlan newPlan = new CrearPlan(1,aux);
+						newPlan.setVisible(true);
+						llenarTabla();
+						btnVer.setEnabled(false);
+					}
+				});
 				buttonPane.add(btnVer);
 			}
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setEnabled(false);
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Plan aux = Altice.getInstance().consultarPlan(cod);
@@ -142,28 +158,28 @@ public class ListarPlan extends JDialog {
 			filas[1] = plan.getNombre();
 			if(plan.isInternet())
 			{
-				filas[2] = "Si";
+				filas[2] = "Habilitado";
 			}
 			else {
-				filas[2] = "No";
+				filas[2] = "Deshabilitado";
 
 			}
 				if(plan.isVoz())
 			{
 
-				filas[3] =  "Si";
+				filas[3] =  "Habilitado";
 			}
 			else {
 				
-				filas[3] = "No";
+				filas[3] = "Deshabilitado";
 
 				}	
 			if(plan.isCable())
 			{
-				filas[4] = "Si";
+				filas[4] = "Habilitado";
 			}
 			else {
-				filas[4] = "No";
+				filas[4] = "Deshabilitado";
 
 			}
 			filas[5] = "RD$: "+plan.getPrecio();

@@ -49,6 +49,9 @@ public class CrearPlan extends JDialog {
     private JSpinner spnMinInt;
     private JComboBox cmbCanal;
     private JComboBox cmbCanalHD;
+    private JButton btnCrear;
+    private JButton btnCancelar;
+    private Plan viejoPlan;
 
 	/**
 	 * Launch the application.
@@ -56,7 +59,8 @@ public class CrearPlan extends JDialog {
     
 	public static void main(String[] args) {
 		try {
-			CrearPlan dialog = new CrearPlan();
+			
+			CrearPlan dialog = new CrearPlan(0, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -67,9 +71,21 @@ public class CrearPlan extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearPlan() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\137349-200.png"));
-		setTitle("Creaci\u00F3n de Planes");
+	public CrearPlan(int mod,Plan viejoPlan) {
+		this.viejoPlan=viejoPlan;
+		//setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\137349-200.png"));
+		String titulo="Creaci\u00F3n de planeas";
+		String canVer="Cancelar";
+		if(viejoPlan!=null &mod==1) {
+			titulo= "Detalle de Plan";
+			canVer="Cerrar";
+		}
+		if(mod==2) {
+			titulo= "Modificación de Planes";
+		}
+		setModal(true);
+		setLocationRelativeTo(null);
+		setTitle(titulo);
 		setBounds(100, 100, 779, 595);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -252,13 +268,39 @@ public class CrearPlan extends JDialog {
 			panel.add(txtPrecioPlan);
 			txtPrecioPlan.setColumns(10);
 			clear();
+			if(viejoPlan!=null) {
+				 txtCodPlan.setText(viejoPlan.getCodPlan());
+			      txtNombre.setText(viejoPlan.getNombre());
+				  txtNumero.setText(viejoPlan.getNumero());
+				  txtPrecioPlan.setText(String.valueOf(viejoPlan.getPrecio()));
+				  modifCant();
+				  spnMinNac.setValue(viejoPlan.getMinNacional());
+				  spnMinInt.setValue(viejoPlan.getMinInter());
+				  chckbxInternet.setEnabled(false);
+				  chckbxVoz.setEnabled(false);
+				  chckbxCable.setEnabled(false);
+				  if(viejoPlan.isCable()) {
+					  panel_cable.setVisible(true);
+					  chckbxCable.setSelected(true);
+				  }
+				  if(viejoPlan.isInternet()) {
+				      panel_internet.setVisible(true);
+				      chckbxInternet.setSelected(true);
+				  }
+				  if(viejoPlan.isVoz()) {
+				     panel_voz.setVisible(true);
+				     chckbxVoz.setSelected(true);
+
+				  }
+				  
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnCrear = new JButton("Crear");
+				btnCrear = new JButton("Crear");
 				btnCrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Plan aux = null;
@@ -270,36 +312,29 @@ public class CrearPlan extends JDialog {
 						boolean internet = false;
 						boolean voz = false;
 						boolean cable = false;
-			
+						String velocidadSubida = "";
+						String velocidadBajada = "";
+                    	double minNac = 0;
+						double minInt = 0;
+                    	int cantCanal = 0;
+                    	int cantHdCanal = 0;
 						if(chckbxInternet.isSelected()) {
-							String velocidadSubida = cmbVelSub.getSelectedItem().toString();
-							String velocidadBajada = cmbVelBaj.getSelectedItem().toString();
+							velocidadSubida = cmbVelSub.getSelectedItem().toString();
+							velocidadBajada = cmbVelBaj.getSelectedItem().toString();
 							internet = true;
-	                         aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, velocidadSubida, velocidadBajada, -1,-1, -1, -1);
-
 						}
-						
                         if(chckbxVoz.isSelected()) {
-                        	double minNac = 0;
     						minNac = new Double(spnMinNac.getValue().toString());
-    						double minInt = 0;
     						minInt = new Double(spnMinInt.getValue().toString());
 							voz = true;
-	                        aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, null, null, -1,-1, minNac, minInt);
-
 						}
                         
                          if(chckbxCable.isSelected()) {
-                        	int cantCanal = 0;
      						cantCanal = new Integer(cmbCanal.getSelectedItem().toString());
-     						int cantHdCanal = 0;
      						cantHdCanal = new Integer(cmbCanalHD.getSelectedItem().toString());
  							cable = true;
-	                        aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, null, null, cantCanal,cantHdCanal, -1, -1);
-
-
 						}
-                         
+                         aux = new Plan(codPlan, nombre, numero, precio,internet, voz,cable, velocidadSubida, velocidadBajada, cantCanal,cantHdCanal, minNac, minInt);
                          Altice.getInstance().crearPlan(aux);
  					     JOptionPane.showMessageDialog(null, "Plan registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                          clear();
@@ -308,9 +343,11 @@ public class CrearPlan extends JDialog {
 				btnCrear.setActionCommand("OK");
 				buttonPane.add(btnCrear);
 				getRootPane().setDefaultButton(btnCrear);
+				
+
 			}
 			{
-				JButton btnCancelar = new JButton("Cancelar");
+				JButton btnCancelar = new JButton(canVer);
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -319,7 +356,44 @@ public class CrearPlan extends JDialog {
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
+			}
+		if(viejoPlan!=null) {
+			  btnCrear.setEnabled(false);
+			  btnCrear.setVisible(false);
+			  txtNumero.setEditable(false);
+			  txtNombre.setEditable(false);
+			  txtPrecioPlan.setEditable(false);
+			  cmbVelSub.setEnabled(false);
+			  cmbVelBaj.setEnabled(false);
+			  cmbCanal.setEnabled(false);
+			  cmbCanalHD.setEnabled(false);
+			  spnMinNac.setEnabled(false);
+			  spnMinInt.setEnabled(false);
+			}
+	
+	}
+
+	private void modifCant() {
+		for(int i=0; i<cmbVelSub.getItemCount();i++) {
+		if(viejoPlan.getVelocidadSubida()==(cmbVelSub.getItemAt(i))) {
+		    cmbVelSub.setSelectedIndex(i);
 		}
+		}
+		for(int i=0; i<cmbVelBaj.getItemCount();i++) {
+		if(viejoPlan.getVelocidadBajada()==(cmbVelBaj.getItemAt(i))) {
+			cmbVelBaj.setSelectedIndex(i);
+		   }
+		}
+		for(int i=0; i<cmbCanal.getItemCount();i++) {
+		if(String.valueOf(viejoPlan.getCantCanal()).equalsIgnoreCase(cmbCanal.getItemAt(i).toString())) {
+			cmbCanal.setSelectedIndex(i);
+		   }
+		}
+		for(int i=0; i<cmbCanalHD.getItemCount();i++) {
+		if(String.valueOf(viejoPlan.getCantHdCanal()).equalsIgnoreCase(cmbCanalHD.getItemAt(i).toString())) {
+			cmbCanalHD.setSelectedIndex(i);
+		   }
+		} 
 	}
 
 	public void clear() {
