@@ -128,10 +128,31 @@ public class CrearPlan extends JDialog {
 			lblNewLabel_1.setBounds(241, 30, 72, 14);
 			panel_1.add(lblNewLabel_1);
 			
-			txtNombre = new JTextField();
+			/*txtNombre = new JTextField();
+			txtNombre.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(chckbxCable.isSelected()) {
+						txtNombre.setText("Solo Cable");
+					} else if(chckbxVoz.isSelected()) {
+						txtNombre.setText("Solo Voz");
+					} else if(chckbxInternet.isSelected()) {
+						txtNombre.setText("Solo Internet");
+					} else if(chckbxVoz.isSelected() && chckbxCable.isSelected()) {
+						txtNombre.setText("DoblePlay Voz y Cable");
+					} else if(chckbxVoz.isSelected() && chckbxInternet.isSelected()) {
+						txtNombre.setText("DoblePlay Voz e Internet");
+					} else if(chckbxCable.isSelected() && chckbxInternet.isSelected()) {
+						txtNombre.setText("DoblePlay Cable e Internet");
+					} else if(chckbxVoz.isSelected() && chckbxInternet.isSelected() && chckbxCable.isSelected()) {
+						txtNombre.setText("TriplePlay");
+					}
+				}
+			});
+			txtNombre.setEditable(false);
+			
 			txtNombre.setBounds(305, 27, 116, 20);
 			panel_1.add(txtNombre);
-			txtNombre.setColumns(10);
+			txtNombre.setColumns(10);*/
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -149,7 +170,7 @@ public class CrearPlan extends JDialog {
 						panel_internet.setVisible(false);
 
 					}
-					
+					cambiarNombre();
 					
 				}
 			});
@@ -166,6 +187,9 @@ public class CrearPlan extends JDialog {
 						panel_voz.setVisible(false);
 
 					}
+					
+					cambiarNombre();
+
 				}
 			});
 			chckbxVoz.setBounds(338, 17, 97, 23);
@@ -181,10 +205,20 @@ public class CrearPlan extends JDialog {
 						panel_cable.setVisible(false);
 
 					}
+					
+					cambiarNombre();
+
 				}
 			});
 			chckbxCable.setBounds(579, 17, 97, 23);
 			panel_2.add(chckbxCable);
+			
+			txtNombre = new JTextField();
+			txtNombre.setEditable(false);
+			
+			txtNombre.setBounds(305, 27, 262, 20);
+			panel_1.add(txtNombre);
+			txtNombre.setColumns(10);
 			
 			panel_internet = new JPanel();
 			panel_internet.setVisible(false);
@@ -539,5 +573,24 @@ public class CrearPlan extends JDialog {
 		
 
       
+	}
+	public void cambiarNombre() {
+	if(chckbxCable.isSelected() && !chckbxVoz.isSelected() && !chckbxInternet.isSelected()) {
+		txtNombre.setText("Solo Cable");
+	} else if(!chckbxCable.isSelected() && chckbxVoz.isSelected() && !chckbxInternet.isSelected()) {
+		txtNombre.setText("Solo Voz");
+	} else if(!chckbxCable.isSelected() && !chckbxVoz.isSelected() && chckbxInternet.isSelected()) {
+		txtNombre.setText("Solo Internet");
+	} else if(chckbxVoz.isSelected() && chckbxCable.isSelected() && !chckbxInternet.isSelected()) {
+		txtNombre.setText("DoblePlay Voz y Cable");
+	} else if(chckbxVoz.isSelected() && chckbxInternet.isSelected() && !chckbxCable.isSelected()) {
+		txtNombre.setText("DoblePlay Voz e Internet");
+	} else if(chckbxCable.isSelected() && chckbxInternet.isSelected() && !chckbxVoz.isSelected()) {
+		txtNombre.setText("DoblePlay Cable e Internet");
+	} else if(chckbxVoz.isSelected() && chckbxInternet.isSelected() && chckbxCable.isSelected()) {
+		txtNombre.setText("TriplePlay");
+	} else {
+		txtNombre.setText("");
+	}
 	}
 }

@@ -41,14 +41,15 @@ public class ListaFactura extends JDialog {
 	private static DefaultTableModel modelo;
 	private String cedula;
 	private String identificacion;
-	private JButton btnNewButton;
 	private static JFormattedTextField txtBuscar;
 	private JFormattedTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
 	private JFormattedTextField txtTelefono;
 	public Cliente cliente;
+	public Factura aux2=null;
 	public String aux;
+	public JButton btnModificar;
 
 
 	/**
@@ -73,13 +74,13 @@ public class ListaFactura extends JDialog {
 			panel.setLayout(null);
 			{
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(10, 135, 827, 227);
+				scrollPane.setBounds(10, 135, 827, 174);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
-				{
+				{	
 					modelo = new DefaultTableModel();
-					String[] columns = {"df"}; 
-					modelo.setColumnIdentifiers(columns);
+					String[] headers = {"Codigo", "Empleado", "Fecha","Monto"};
+					modelo.setColumnIdentifiers(headers);
 					
 					table = new JTable();
 					table.addMouseListener(new MouseAdapter() {
@@ -89,6 +90,8 @@ public class ListaFactura extends JDialog {
 							if(seleccionarFactura!=-1) {
 								identificacion = (String)table.getModel().getValueAt(seleccionarFactura, 2);
 								cedula = (String)table.getModel().getValueAt(seleccionarFactura, 0);
+								btnModificar.setEnabled(true);
+								aux2 = Altice.getInstance().buscarCodigo((String)modelo.getValueAt(seleccionarFactura, 0));
 						}
 					 }
 					});
@@ -100,21 +103,10 @@ public class ListaFactura extends JDialog {
 				}
 			}
 			
-			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(null, "Buscar Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(10, 18, 265, 106);
-			panel.add(panel_1);
-			panel_1.setLayout(null);
-			
-			JLabel lblNewLabel = new JLabel("C\u00E9dula:");
-			lblNewLabel.setBounds(10, 42, 65, 14);
-			panel_1.add(lblNewLabel);
-			
 			txtBuscar = new JFormattedTextField();
 			try {
 				MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
 				formatoCedula.setPlaceholderCharacter('_');
-				txtBuscar = new JFormattedTextField(formatoCedula);			
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -126,62 +118,13 @@ public class ListaFactura extends JDialog {
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
-			txtBuscar.setBounds(66, 38, 163, 23);
-			panel_1.add(txtBuscar);
-			txtBuscar.setColumns(10);
 			
-			btnNewButton = new JButton("Buscar");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					//	cliente = Altice.getInstance().buscarCliente(txtBuscar.getText());
-						System.out.println(cliente.getCedula());
-//						if(!txtBuscar.getText().equalsIgnoreCase("___-_______-_")) {
-			//			if(cliente != null){
-							cargarTabla();	
-							txtCedula.setText(cliente.getCedula());
-							txtNombre.setText(cliente.getNombre());
-							txtDireccion.setText(cliente.getDireccion());
-							txtTelefono.setText(cliente.getTelefono());
-					//		clear();
-							/*}else{
-							JOptionPane.showMessageDialog(null, "El cliente no fue encontrado", null, JOptionPane.WARNING_MESSAGE, null);
-							clear();
-						}
-					/*} else {
-						JOptionPane.showMessageDialog(null, "Favor revisar que todos los campos estén llenos", null, JOptionPane.ERROR_MESSAGE, null);
-						clear();
-						
-				private void clear() {
-				// TODO Auto-generated method stub
-				txtBuscar.setText("");
-			}
-						*
-						*/
-					
-				} 
-			
-
-				
-			});
-			btnNewButton.setBounds(140, 72, 89, 23);
-			panel_1.add(btnNewButton);
-			
-			modelo = new DefaultTableModel(){
-				
-				 @Override
-				 public boolean isCellEditable(int row, int column) {
-				       //all cells false
-				       return false;
-				    }
-				
-			};
 
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setLayout(null);
 			panel_2.setBorder(new TitledBorder(null, "Datos Del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_2.setBounds(279, 18, 558, 106);
+			panel_2.setBounds(122, 28, 558, 106);
 			panel.add(panel_2);
 			
 			JLabel label = new JLabel("Cedula:");
@@ -196,7 +139,7 @@ public class ListaFactura extends JDialog {
 			try {
 				MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
 				formatoCedula.setPlaceholderCharacter('_');
-				txtBuscar = new JFormattedTextField(formatoCedula);			
+				txtCedula = new JFormattedTextField(formatoCedula);			
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -244,6 +187,15 @@ public class ListaFactura extends JDialog {
 						dispose();
 					}
 				});
+				
+				btnModificar = new JButton("Pagar");
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						PagarFact newp = new PagarFact(0,aux2.getMicliente());
+						newp.setVisible(true);
+						}
+				});
+				buttonPane.add(btnModificar);
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
@@ -264,19 +216,20 @@ public class ListaFactura extends JDialog {
 	public void cargarTabla() {
 		modelo.setRowCount(0);
 		fila = new Object[modelo.getColumnCount()];
+		
 		for (Factura factura : Altice.getInstance().getMisFacturas()) {
-			
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
 			fila[0]=factura.getCodFact();
 			fila[1]=factura.getMicliente().getNombre();
-			fila[2]=factura.getEmpleado().getNombre();
+			fila[2]= "Empleado 1";
+			//	fila[2]=factura.getEmpleado().getNombre();
 			fila[3]=factura.getFecha();
-			fila[4]=factura.getTotal();
 
 			
 			modelo.addRow(fila);
 			}
 		}
 	}
+	
 	
 }

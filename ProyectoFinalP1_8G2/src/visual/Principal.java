@@ -154,6 +154,15 @@ public class Principal extends JFrame {
 		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Estadistica #1");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GraficaUsuariosPlan grafica1 = new GraficaUsuariosPlan();
+				//grafica1.setModal(true);
+				grafica1.setLocationRelativeTo(null);
+				grafica1.setVisible(true);
+			
+			}
+		});
 		mnNewMenu_4.add(mntmNewMenuItem_8);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Estadistica #2");

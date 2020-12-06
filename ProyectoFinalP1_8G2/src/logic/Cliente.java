@@ -41,6 +41,7 @@ public class Cliente {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
+		this.misPlanes = new ArrayList<>();
 	}
 	public ArrayList<Plan> getMisPlanes() {
 		return misPlanes;

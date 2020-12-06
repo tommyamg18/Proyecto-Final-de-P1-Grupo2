@@ -62,6 +62,47 @@ public class Altice {
 	
 	}
 	
+	public ArrayList<Integer> cantidadUsuariosCadaPlan(){
+		int cantVoz = 0;
+		int cantInternet= 0;
+		int cantCable = 0;
+		int cantVozCable = 0;
+		int cantVozInternet = 0;
+		int cantCableInternet = 0;
+		int cantTriple = 0;
+
+		ArrayList<Integer> cantidad = new ArrayList<>();
+		for (Cliente cliente: misClientes) {
+			System.out.println(cliente.getCedula());
+		for (Plan plan : cliente.getMisPlanes()) {
+			if(plan.getNombre().equalsIgnoreCase("Solo Cable")) {
+				cantCable++;
+			} else if(plan.getNombre().equalsIgnoreCase("Solo Voz")) {
+				cantVoz++;
+			} else if(plan.getNombre().equalsIgnoreCase("Solo Internet")) {
+				cantInternet++;
+			} else if(plan.getNombre().equalsIgnoreCase("DoblePlay Voz y Cable")) {
+				cantVozCable++;
+			} else if(plan.getNombre().equalsIgnoreCase("DoblePlay Voz e Internet")) {
+				cantVozInternet++;
+			} else if(plan.getNombre().equalsIgnoreCase("DoblePlay Cable e Internet")) {
+				cantCableInternet++;
+			} else if(plan.getNombre().equalsIgnoreCase("TriplePlay")) {
+				cantTriple++;
+			}
+			
+		}
+	}
+		cantidad.add(cantCable);
+		cantidad.add(cantVoz);
+		cantidad.add(cantInternet);
+		cantidad.add(cantVozCable);
+		cantidad.add(cantVozInternet);
+		cantidad.add(cantCableInternet);
+		cantidad.add(cantTriple);
+		return cantidad;
+	}
+	
 	public Cliente buscarCliente(String cedula) {
 		Cliente client= null;
 		boolean encontrado = false;
