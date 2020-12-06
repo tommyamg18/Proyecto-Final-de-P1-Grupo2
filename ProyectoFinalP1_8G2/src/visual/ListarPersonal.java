@@ -32,6 +32,10 @@ import java.awt.Rectangle;
 
 public class ListarPersonal extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7684069395578839968L;
 	private final JPanel contentPanel = new JPanel();
 	 public static DefaultTableModel modelo;
 	 public static Object[] filas;

@@ -11,21 +11,21 @@ public class Factura {
 	private ArrayList<Plan> misPlanes;
 	private Date fecha;
 	private double total;
+	private boolean pagada;
 	
-	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes,double total) {
+	
+	
+	
+
+	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes,double total, boolean pagada) {
 		super();
 		this.codFact = codFact;
 		this.micliente = micliente;
 		this.empleado = empleado;
 		this.misPlanes = misPlanes;
-		this.setFecha(new Date());
-		this.total=total;
-	}
-	
-	
-
-	public Factura(Cliente client, Factura fact1) {
-		// TODO Auto-generated constructor stub
+		this.fecha = new Date();
+		this.total = total;
+		this.pagada = pagada;
 	}
 
 
@@ -83,6 +83,18 @@ public class Factura {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+
+
+	public boolean isPagada() {
+		return pagada;
+	}
+
+
+
+	public void setPagada(boolean pagada) {
+		this.pagada = pagada;
 	}
 	
 }

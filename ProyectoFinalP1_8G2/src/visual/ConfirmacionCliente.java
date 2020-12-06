@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 
 
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -18,7 +19,6 @@ import logic.Cliente;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
@@ -26,6 +26,10 @@ import java.awt.event.ActionEvent;
 
 public class ConfirmacionCliente extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1240921974650145134L;
 	/**
 	 * 
 	 */
@@ -39,7 +43,7 @@ public class ConfirmacionCliente extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ConfirmacionCliente dialog = new ConfirmacionCliente();
+			ConfirmacionCliente dialog = new ConfirmacionCliente(0);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -50,7 +54,7 @@ public class ConfirmacionCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ConfirmacionCliente() {
+	public ConfirmacionCliente(int i) {
 		setResizable(false);
 		setTitle("Opciones de Clientes");
 		setBounds(100, 100, 492, 328);
@@ -112,6 +116,7 @@ public class ConfirmacionCliente extends JDialog {
 				JButton okButton = new JButton("Confirmar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						if(i==0) {
 						if(rdbtnExistente.isSelected()) {
 							Cliente miCliente = Altice.getInstance().buscarCliente(textField.getText());
 							if(miCliente!= null) {
@@ -128,7 +133,20 @@ public class ConfirmacionCliente extends JDialog {
 							dispose();
 						}
 					}
-				});
+					if(i==1) {
+						if(rdbtnExistente.isSelected()) {
+							Cliente miCliente = Altice.getInstance().buscarCliente(textField.getText());
+
+							if(miCliente!= null) {
+								ListaFactura newFact = new ListaFactura(miCliente.getCedula());
+							newFact.setVisible(true);
+							dispose();
+							}else {
+								JOptionPane.showMessageDialog(null, "Cedula No encontrada, \nPor favor Verificar", "Error", JOptionPane.ERROR_MESSAGE);
+								textField.setText("___-_______-_");
+							}
+						}}
+					}});
 				okButton.setActionCommand("ok");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -144,5 +162,16 @@ public class ConfirmacionCliente extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		if(i==1) {
+			rdbtnNuevo.setSelected(false);
+			rdbtnNuevo.setVisible(false);
+			rdbtnNuevo.setEnabled(false);
+			rdbtnExistente.setSelected(true);
+			rdbtnExistente.setVisible(false);
+			textField.setEnabled(true);
+			textField.setEditable(true);
+			lblNewLabel.setText("Digite Cedula de cliente que \n quiere ver consultar");
+		}
 	}
+	
 }

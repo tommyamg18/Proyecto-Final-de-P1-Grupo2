@@ -37,16 +37,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 
-public class Facturacion extends JDialog {
+public class PagarFact extends JDialog {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3318872162197742334L;
+	private static final long serialVersionUID = 7285987465287828314L;
+	/**
+	 * 
+	 */
 	private final JPanel contentPanel = new JPanel();
 	private String cedula;
-	private JList listPlanFacturar;
-	private JList listPlanDisponible;
+	private JList listFacturar;
+	private JList listDisponible;
 	private String identificacion;
 	private JTextField txtCedula;
 	private JTextField txtNombre;
@@ -59,10 +62,10 @@ public class Facturacion extends JDialog {
 	private JButton btnAgregar;
 	private JButton btnQuitar;
 	private String seleccion = "<Todos>";
-    private ArrayList<String> planDisponible;
-    private ArrayList<String> planDisponibleId=new ArrayList<>();
-    private ArrayList<String> planFacturar = new ArrayList<>();
-	private ArrayList<String> planFacturarId = new ArrayList<>();
+    private ArrayList<String> Disponible;
+    private ArrayList<String> DisponibleId=new ArrayList<>();
+    private ArrayList<String> Facturar = new ArrayList<>();
+	private ArrayList<String> FacturarId = new ArrayList<>();
 	private double total=0;
 	public Plan aux=null;
 	private String cod;
@@ -78,7 +81,7 @@ public class Facturacion extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Facturacion dialog = new Facturacion(0,null);
+			PagarFact dialog = new PagarFact(0,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -89,8 +92,8 @@ public class Facturacion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Facturacion(int mod, Cliente miCliente) {
-		setTitle("Facturaci\u00F3n");
+	public PagarFact(int mod, Cliente miCliente) {
+		setTitle("Pago Factura");
 		setBounds(100, 100, 1086, 688);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -169,35 +172,36 @@ public class Facturacion extends JDialog {
 			}
 			
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Planes Disponibles:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel_1.setBackground(new Color(240, 240, 240));
+			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Facturas vencidas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_1.setBounds(26, 208, 429, 288);
 			panel.add(panel_1);
 			panel_1.setLayout(new BorderLayout(0, 0));
 			
-			listPlanDisponible = new JList();
-			listPlanDisponible.addMouseListener(new MouseAdapter() {
+			listDisponible = new JList();
+			listDisponible.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					index = listPlanDisponible.getSelectedIndex();
+					index = listDisponible.getSelectedIndex();
 					if(index!=-1){
 						btnAgregar.setEnabled(true);
 					}
 				}
 			});
-			panel_1.add(listPlanDisponible, BorderLayout.CENTER);
+			panel_1.add(listDisponible, BorderLayout.CENTER);
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Planes a Facturar:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Facturas a pagar:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_2.setBounds(580, 208, 429, 288);
 			panel.add(panel_2);
 			panel_2.setLayout(new BorderLayout(0, 0));
 			
-			listPlanFacturar = new JList();
-			panel_2.add(listPlanFacturar, BorderLayout.CENTER);
-			listPlanFacturar.addMouseListener(new MouseAdapter() {
+			listFacturar = new JList();
+			panel_2.add(listFacturar, BorderLayout.CENTER);
+			listFacturar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					indexBack = listPlanFacturar.getSelectedIndex();
+					indexBack = listFacturar.getSelectedIndex();
 					if(indexBack!=-1){
 						btnQuitar.setEnabled(true);
 					}
@@ -209,14 +213,14 @@ public class Facturacion extends JDialog {
 			btnAgregar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(index!=-1){
-						planFacturar.add(planDisponible.get(index));
-						planFacturarId.add(planDisponibleId.get(index));
-						planDisponible.remove(index);
-						planDisponibleId.remove(index);
-						listPlanDisponible.removeAll();
-						listPlanDisponible.setListData(planDisponible.toArray());
-						listPlanFacturar.removeAll();
-						listPlanFacturar.setListData(planFacturar.toArray());
+						Facturar.add(Disponible.get(index));
+						FacturarId.add(DisponibleId.get(index));
+						Disponible.remove(index);
+						DisponibleId.remove(index);
+						listDisponible.removeAll();
+						listDisponible.setListData(Disponible.toArray());
+						listFacturar.removeAll();
+						listFacturar.setListData(Facturar.toArray());
 						btnAgregar.setEnabled(false);
 						actualizarMonto();
 						cargarSeleccion();
@@ -231,14 +235,14 @@ public class Facturacion extends JDialog {
 			btnQuitar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(indexBack!=-1){
-						  planDisponible.add(planFacturar.get(indexBack));
-						  planDisponibleId.add(planFacturarId.get(indexBack));
-						  planFacturar.remove(indexBack);
-						  planFacturarId.remove(indexBack);
-						  listPlanDisponible.removeAll();
-						  listPlanDisponible.setListData(planDisponible.toArray());
-						  listPlanFacturar.removeAll();
-						  listPlanFacturar.setListData(planFacturar.toArray());
+						  Disponible.add(Facturar.get(indexBack));
+						  DisponibleId.add(FacturarId.get(indexBack));
+						  Facturar.remove(indexBack);
+						  FacturarId.remove(indexBack);
+						  listDisponible.removeAll();
+						  listDisponible.setListData(Disponible.toArray());
+						  listFacturar.removeAll();
+						  listFacturar.setListData(Facturar.toArray());
 						  btnQuitar.setEnabled(false);
 						  actualizarMonto();
 						  cargarSeleccion();
@@ -335,9 +339,8 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						Factura aux = null;
 						String codFactura = txtCodFac.getText();
-						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),Double.valueOf(txtTotal.getText()),true);
-						Altice.getInstance().crearFactura(aux);
-					    JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
+						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),Double.valueOf(txtTotal.getText()),false);
+						JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 						dispose();
 					}
@@ -366,7 +369,7 @@ public class Facturacion extends JDialog {
 
 	private void cargarSeleccion() {
 		cbxDetalle.removeAllItems();
-		for (String Seleccion : planFacturarId) {
+		for (String Seleccion : FacturarId) {
 			cbxDetalle.addItem(Seleccion);
 		}
 	}
@@ -379,12 +382,12 @@ public class Facturacion extends JDialog {
 	}
 
 	private void cargarListaDisponible( String seleccion) {
-		planDisponible = new ArrayList<>();
+		Disponible = new ArrayList<>();
 		if(seleccion.equalsIgnoreCase("<Todos>")){ 
 		 for (int i = 0; i < Altice.getInstance().getMisPlanes().size(); i++) {
 
-		   planDisponible.add(new String(Altice.getInstance().getMisPlanes().get(i).getCodPlan() +" : "+Altice.getInstance().getMisPlanes().get(i).getNombre()+" : "+Math.round(Altice.getInstance().getMisPlanes().get(i).getPrecio()*100.0)/100.0));
-		   planDisponibleId.add(new String(Altice.getInstance().getMisPlanes().get(i).getCodPlan()));
+		   Disponible.add(new String(Altice.getInstance().getMisFacturas().get(i).getCodFact() +" : "+Altice.getInstance().getMisFacturas().get(i).getFecha()+" : "+Math.round(Altice.getInstance().getMisPlanes().get(i).getPrecio()*100.0)/100.0));
+		   DisponibleId.add(new String(Altice.getInstance().getMisPlanes().get(i).getCodPlan()));
 		  }
 		}else{
 		/*	 for (int i = 0; i < Altice.getInstance().getMisPlanes().size(); i++) {
@@ -403,21 +406,21 @@ public class Facturacion extends JDialog {
 				 }
 		 }	*/
 		}
-		listPlanDisponible.removeAll();
-		listPlanDisponible.setListData(planDisponible.toArray());
+		listDisponible.removeAll();
+		listDisponible.setListData(Disponible.toArray());
 		
 	}
 	public void actualizarMonto() {
-		ArrayList<Plan> aux = Altice.getInstance().getMisPlanes();
+		ArrayList<Factura> aux = Altice.getInstance().getMisFacturas();
 		total = 0;
-			for (Plan plan : aux) {
-				for(int i=0; i<planFacturarId.size();i++) {
-					if(plan.getCodPlan().equalsIgnoreCase(planFacturarId.get(i))) {
-						total= total + plan.getPrecio() ;
+			for (Factura plan : aux) {
+				for(int i=0; i<FacturarId.size();i++) {
+					if(plan.getCodFact().equalsIgnoreCase(FacturarId.get(i))) {
+						total= total + plan.getTotal();
 					}
 				}					
 			}
-			DecimalFormat d = new DecimalFormat("###.##");
+			DecimalFormat d = new DecimalFormat("######.##");
 			txtITBIS.setText(String.valueOf(Double.valueOf(d.format(total*0.18))));
 			txtCDS.setText(String.valueOf(Double.valueOf(d.format(total*0.02))));
 			txtISC.setText(String.valueOf(Double.valueOf(d.format(total*0.10))));
@@ -431,8 +434,8 @@ public class Facturacion extends JDialog {
 		ArrayList<Plan> aux= new ArrayList<>();
 		ArrayList<Plan> todos = Altice.getInstance().getMisPlanes();
 		for (Plan plan : todos) {
-			for(int i=0; i<planFacturarId.size();i++) {
-				if(plan.getCodPlan().equalsIgnoreCase(planFacturarId.get(i))) {
+			for(int i=0; i<FacturarId.size();i++) {
+				if(plan.getCodPlan().equalsIgnoreCase(FacturarId.get(i))) {
 				aux.add(plan);
 				}
 			}

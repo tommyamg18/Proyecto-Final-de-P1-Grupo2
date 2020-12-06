@@ -103,9 +103,8 @@ public class Altice {
 	}
 	
 	public void crearFactura(Factura factura) {
-		//int fact = facturas.size()+1;
-		//factura.setCodFactura(Integer.toString(fact));
 		misFacturas.add(factura);
+		factCod++;
 	}
 	
 	

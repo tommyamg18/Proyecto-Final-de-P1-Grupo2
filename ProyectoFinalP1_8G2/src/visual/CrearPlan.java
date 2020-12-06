@@ -2,6 +2,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -10,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -18,13 +18,9 @@ import javax.swing.border.TitledBorder;
 
 import logic.Altice;
 import logic.Cliente;
-import logic.Factura;
 import logic.Plan;
 
 import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
@@ -34,6 +30,10 @@ import javax.swing.SpinnerNumberModel;
 
 public class CrearPlan extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5726530624311684122L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodPlan;
 	private JTextField txtNombre;

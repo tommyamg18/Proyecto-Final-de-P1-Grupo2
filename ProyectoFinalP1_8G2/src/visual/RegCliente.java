@@ -62,7 +62,7 @@ public class RegCliente extends JDialog {
 	public RegCliente(int i, String cedula) {
 		if(i== 0) {
 			auxTitle="Agregar";
-		}else {
+		}if(i==1){
 			auxTitle="Modificar";
 		}
 		setTitle(auxTitle+" Cliente");
@@ -122,7 +122,7 @@ public class RegCliente extends JDialog {
 			
 			txtTelefono = new JFormattedTextField((AbstractFormatter) null);
 			try {
-				MaskFormatter formatoTele= new MaskFormatter("###-###-####");
+				MaskFormatter formatoTele= new MaskFormatter("(###)-###-####");
 				formatoTele.setPlaceholderCharacter('_');
 				txtTelefono = new JFormattedTextField(formatoTele);			
 			}catch (Exception e) {

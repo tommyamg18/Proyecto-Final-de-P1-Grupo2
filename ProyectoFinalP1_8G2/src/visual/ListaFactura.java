@@ -47,17 +47,18 @@ public class ListaFactura extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
 	private JFormattedTextField txtTelefono;
-	private Cliente cliente = null;
+	public Cliente cliente;
+	public String aux;
 
 
 	/**
 	 * Create the dialog.
 	 * @param mialma 
 	 */
-	public ListaFactura(Cliente client) {
-		
+	public ListaFactura(String aux) {
+		this.cliente = Altice.getInstance().buscarCliente(aux);
+		this.aux=aux;
 		setTitle("Listado de Facturas");
-		this.cliente = client;
 		setResizable(false);
 		setBounds(100, 100, 862, 445);
 		setLocationRelativeTo(null);
@@ -133,31 +134,34 @@ public class ListaFactura extends JDialog {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-						cliente = Altice.getInstance().buscarCliente(txtBuscar.getText());
-						System.out.println(client.getCedula());
+					//	cliente = Altice.getInstance().buscarCliente(txtBuscar.getText());
+						System.out.println(cliente.getCedula());
 //						if(!txtBuscar.getText().equalsIgnoreCase("___-_______-_")) {
-						if(client != null){
-							cargarTabla(Altice.getInstance().buscarCliente(txtBuscar.getText()));	
-							txtCedula.setText(client.getCedula());
-							txtNombre.setText(client.getNombre());
-							txtDireccion.setText(client.getDireccion());
-							txtTelefono.setText(client.getTelefono());
-							clear();
-						}else{
+			//			if(cliente != null){
+							cargarTabla();	
+							txtCedula.setText(cliente.getCedula());
+							txtNombre.setText(cliente.getNombre());
+							txtDireccion.setText(cliente.getDireccion());
+							txtTelefono.setText(cliente.getTelefono());
+					//		clear();
+							/*}else{
 							JOptionPane.showMessageDialog(null, "El cliente no fue encontrado", null, JOptionPane.WARNING_MESSAGE, null);
 							clear();
 						}
 					/*} else {
 						JOptionPane.showMessageDialog(null, "Favor revisar que todos los campos estén llenos", null, JOptionPane.ERROR_MESSAGE, null);
 						clear();
-					}*/
-				} 
-			
-
+						
 				private void clear() {
 				// TODO Auto-generated method stub
 				txtBuscar.setText("");
 			}
+						*
+						*/
+					
+				} 
+			
+
 				
 			});
 			btnNewButton.setBounds(140, 72, 89, 23);
@@ -244,20 +248,25 @@ public class ListaFactura extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-		
-		//cargarTabla(null);
+			
+			cargarTabla();	
+			txtCedula.setText(cliente.getCedula());
+			txtNombre.setText(cliente.getNombre());
+			txtDireccion.setText(cliente.getDireccion());
+			txtTelefono.setText(cliente.getTelefono());
+	
+
 	}
+	
 
 
 
-	public static void cargarTabla(Cliente cliente) {
+	public void cargarTabla() {
 		modelo.setRowCount(0);
 		fila = new Object[modelo.getColumnCount()];
-
 		for (Factura factura : Altice.getInstance().getMisFacturas()) {
 			
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
-			
 			fila[0]=factura.getCodFact();
 			fila[1]=factura.getMicliente().getNombre();
 			fila[2]=factura.getEmpleado().getNombre();
@@ -269,4 +278,5 @@ public class ListaFactura extends JDialog {
 			}
 		}
 	}
+	
 }

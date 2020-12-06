@@ -74,7 +74,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Crear");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ConfirmacionCliente nue = new ConfirmacionCliente();
+				ConfirmacionCliente nue = new ConfirmacionCliente(0);
 				nue.setVisible(true);
 				nue.setLocationRelativeTo(null);
 				nue.setVisible(true);
@@ -88,10 +88,10 @@ public class Principal extends JFrame {
 		JMenuItem mntmListar = new JMenuItem("Listar");
 		mntmListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListaFactura newListFac = new ListaFactura(null);
-				newListFac.setVisible(true);
-				newListFac.setModal(true);
-				newListFac.setLocationRelativeTo(null);
+				ConfirmacionCliente nue = new ConfirmacionCliente(1);
+				nue.setVisible(true);
+				nue.setLocationRelativeTo(null);
+				nue.setVisible(true);
 
 			}
 		});
