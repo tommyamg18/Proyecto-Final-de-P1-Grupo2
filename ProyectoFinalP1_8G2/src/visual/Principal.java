@@ -88,7 +88,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmListar = new JMenuItem("Listar");
 		mntmListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListaFactura newListFac = new ListaFactura();
+				ListaFactura newListFac = new ListaFactura(null);
 				newListFac.setVisible(true);
 				newListFac.setModal(true);
 				newListFac.setLocationRelativeTo(null);

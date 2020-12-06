@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 import logic.Altice;
@@ -40,19 +42,22 @@ public class ListaFactura extends JDialog {
 	private String cedula;
 	private String identificacion;
 	private JButton btnNewButton;
-	private JTextField txtBuscar;
-	private JTextField txtCedula;
+	private static JFormattedTextField txtBuscar;
+	private JFormattedTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
-	private JTextField txtTelefono;
+	private JFormattedTextField txtTelefono;
+	private Cliente cliente = null;
 
 
 	/**
 	 * Create the dialog.
 	 * @param mialma 
 	 */
-	public ListaFactura() {
+	public ListaFactura(Cliente client) {
+		
 		setTitle("Listado de Facturas");
+		this.cliente = client;
 		setResizable(false);
 		setBounds(100, 100, 862, 445);
 		setLocationRelativeTo(null);
@@ -72,7 +77,7 @@ public class ListaFactura extends JDialog {
 				panel.add(scrollPane);
 				{
 					modelo = new DefaultTableModel();
-					String[] columns = {""}; 
+					String[] columns = {"df"}; 
 					modelo.setColumnIdentifiers(columns);
 					
 					table = new JTable();
@@ -89,7 +94,7 @@ public class ListaFactura extends JDialog {
 									
 					table.setModel(modelo);
 					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					cargarTabla(null);
+					//cargarTabla(null);
 					scrollPane.setViewportView(table);
 				}
 			}
@@ -104,7 +109,7 @@ public class ListaFactura extends JDialog {
 			lblNewLabel.setBounds(10, 42, 65, 14);
 			panel_1.add(lblNewLabel);
 			
-			txtBuscar = new JTextField();
+			txtBuscar = new JFormattedTextField();
 			try {
 				MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
 				formatoCedula.setPlaceholderCharacter('_');
@@ -127,34 +132,47 @@ public class ListaFactura extends JDialog {
 			btnNewButton = new JButton("Buscar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					{
-						Cliente client = Altice.getInstance().buscarCliente(txtBuscar.getText());
-						if(!txtBuscar.getText().equalsIgnoreCase("___-_______-_")) {
+					
+						cliente = Altice.getInstance().buscarCliente(txtBuscar.getText());
+						System.out.println(client.getCedula());
+//						if(!txtBuscar.getText().equalsIgnoreCase("___-_______-_")) {
 						if(client != null){
-							cargarTabla((Cliente)Altice.getInstance().buscarCliente(txtBuscar.getText()));	
-							txtCedula.setText(String.valueOf(client.getCedula()));
-							txtNombre.setText(String.valueOf(client.getNombre()));
-							txtDireccion.setText(String.valueOf(client.getDireccion()));
-							txtTelefono.setText(String.valueOf(client.getTelefono()));
+							cargarTabla(Altice.getInstance().buscarCliente(txtBuscar.getText()));	
+							txtCedula.setText(client.getCedula());
+							txtNombre.setText(client.getNombre());
+							txtDireccion.setText(client.getDireccion());
+							txtTelefono.setText(client.getTelefono());
 							clear();
 						}else{
 							JOptionPane.showMessageDialog(null, "El cliente no fue encontrado", null, JOptionPane.WARNING_MESSAGE, null);
 							clear();
 						}
-					} else {
+					/*} else {
 						JOptionPane.showMessageDialog(null, "Favor revisar que todos los campos estén llenos", null, JOptionPane.ERROR_MESSAGE, null);
 						clear();
-					}
-				}
-			}
+					}*/
+				} 
+			
 
 				private void clear() {
 				// TODO Auto-generated method stub
 				txtBuscar.setText("");
 			}
+				
 			});
 			btnNewButton.setBounds(140, 72, 89, 23);
 			panel_1.add(btnNewButton);
+			
+			modelo = new DefaultTableModel(){
+				
+				 @Override
+				 public boolean isCellEditable(int row, int column) {
+				       //all cells false
+				       return false;
+				    }
+				
+			};
+
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setLayout(null);
@@ -170,7 +188,7 @@ public class ListaFactura extends JDialog {
 			label_1.setBounds(10, 59, 54, 14);
 			panel_2.add(label_1);
 			
-			txtCedula = new JTextField();
+			txtCedula = new JFormattedTextField();
 			try {
 				MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
 				formatoCedula.setPlaceholderCharacter('_');
@@ -204,7 +222,7 @@ public class ListaFactura extends JDialog {
 			txtDireccion.setBounds(319, 23, 229, 23);
 			panel_2.add(txtDireccion);
 			
-			txtTelefono = new JTextField();
+			txtTelefono = new JFormattedTextField();
 			txtTelefono.setEditable(false);
 			txtTelefono.setColumns(10);
 			txtTelefono.setBounds(319, 55, 119, 23);
@@ -227,7 +245,7 @@ public class ListaFactura extends JDialog {
 			}
 		}
 		
-		cargarTabla(null);
+		//cargarTabla(null);
 	}
 
 
@@ -235,31 +253,20 @@ public class ListaFactura extends JDialog {
 	public static void cargarTabla(Cliente cliente) {
 		modelo.setRowCount(0);
 		fila = new Object[modelo.getColumnCount()];
+
 		for (Factura factura : Altice.getInstance().getMisFacturas()) {
 			
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
+			
 			fila[0]=factura.getCodFact();
-			fila[1]=factura.getEmpleado().getNombre();
-			//fila[2]=factura.getEmpleado().getTipo;
-			/*fila[0]=factura.getMicliente().getCedula();
 			fila[1]=factura.getMicliente().getNombre();
-			fila[3]=factura.getMisPlanes().;
-			for (Plan plan : Altice.getInstance().getMisPlanes()) {
-				if() {
-					fila[4] = "Esferico";
-				}
-				if() {
-					fila[4] = "Cilindrico";
+			fila[2]=factura.getEmpleado().getNombre();
+			fila[3]=factura.getFecha();
+			fila[4]=factura.getTotal();
 
-				}
-				if() {
-					fila[4] = "Cilindrico-Hueco";
-
-				}
-			}*/
+			
 			modelo.addRow(fila);
 			}
 		}
-		
 	}
 }
