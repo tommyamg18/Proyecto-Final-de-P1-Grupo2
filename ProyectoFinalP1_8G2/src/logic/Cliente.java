@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-import logic.Plan;
+
 
 public class Cliente {
 	private String cedula;
@@ -41,6 +41,12 @@ public class Cliente {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
+	}
+	public ArrayList<Plan> getMisPlanes() {
+		return misPlanes;
+	}
+	public void setMisPlanes(ArrayList<Plan> misPlanes) {
+		this.misPlanes = misPlanes;
 	}
 	
 	

@@ -30,7 +30,7 @@ public class ConfirmacionCliente extends JDialog {
 	 * 
 	 */
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JFormattedTextField textField;
 	private JRadioButton rdbtnExistente;
 	private JRadioButton rdbtnNuevo;
 

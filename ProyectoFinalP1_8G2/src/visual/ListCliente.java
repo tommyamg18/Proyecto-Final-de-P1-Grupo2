@@ -52,7 +52,8 @@ public class ListCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListCliente() {		setTitle("Listado de Clientes");
+	public ListCliente() {		
+	setTitle("Listado de Clientes");
 	setModal(true);
 	setLocationRelativeTo(null);
 	setBounds(100, 100, 747, 468);
@@ -107,6 +108,8 @@ public class ListCliente extends JDialog {
 						reg.setLocationRelativeTo(null);
 						reg.setVisible(true);
 						llenarTabla();
+						btnEliminar.setEnabled(false);
+						btnModificar.setEnabled(false);
 					}
 				}
 			});
@@ -117,6 +120,7 @@ public class ListCliente extends JDialog {
 		}
 		{
 			btnEliminar = new JButton("Eliminar");
+			btnEliminar.setEnabled(false);
 			btnEliminar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(aux!=null) {
@@ -125,6 +129,7 @@ public class ListCliente extends JDialog {
 							Altice.getInstance().eliminarCliente(aux);
 							llenarTabla();
 							btnEliminar.setEnabled(false);
+							btnModificar.setEnabled(false);
 						}
 					}
 				}

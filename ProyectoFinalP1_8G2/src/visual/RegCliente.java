@@ -8,14 +8,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import logic.Altice;
 import logic.Cliente;
@@ -32,9 +35,9 @@ public class RegCliente extends JDialog {
 	 */
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
-	private JTextField txtCedula;
+	private JFormattedTextField txtCedula;
 	private JTextField txtDireccion;
-	private JTextField txtTelefono;
+	private JFormattedTextField txtTelefono;
 	private String auxTitle;
 
 	/**
@@ -100,7 +103,14 @@ public class RegCliente extends JDialog {
 			panel.add(txtNombre);
 			txtNombre.setColumns(10);
 			
-			txtCedula = new JTextField();
+			txtCedula = new JFormattedTextField((AbstractFormatter) null);
+			try {
+				MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
+				formatoCedula.setPlaceholderCharacter('_');
+				txtCedula = new JFormattedTextField(formatoCedula);			
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			txtCedula.setColumns(10);
 			txtCedula.setBounds(134, 93, 454, 39);
 			panel.add(txtCedula);
@@ -110,7 +120,14 @@ public class RegCliente extends JDialog {
 			txtDireccion.setBounds(134, 155, 454, 39);
 			panel.add(txtDireccion);
 			
-			txtTelefono = new JTextField();
+			txtTelefono = new JFormattedTextField((AbstractFormatter) null);
+			try {
+				MaskFormatter formatoTele= new MaskFormatter("###-###-####");
+				formatoTele.setPlaceholderCharacter('_');
+				txtTelefono = new JFormattedTextField(formatoTele);			
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			txtTelefono.setColumns(10);
 			txtTelefono.setBounds(134, 217, 454, 39);
 			panel.add(txtTelefono);

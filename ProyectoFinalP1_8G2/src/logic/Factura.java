@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Factura {
 	
@@ -8,13 +9,17 @@ public class Factura {
 	private Cliente micliente;
 	private Comercial empleado;
 	private ArrayList<Plan> misPlanes;
+	private Date fecha;
+	private double total;
 	
-	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes) {
+	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes,double total) {
 		super();
 		this.codFact = codFact;
 		this.micliente = micliente;
 		this.empleado = empleado;
-		this.misPlanes = new ArrayList<>();
+		this.misPlanes = misPlanes;
+		this.setFecha(new Date());
+		this.total=total;
 	}
 	
 	
@@ -23,13 +28,6 @@ public class Factura {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-	public double calTotal() {
-		double total = 0;
-		
-		return total;
-	}
 
 	public String getCodFact() {
 		return codFact;
@@ -61,6 +59,30 @@ public class Factura {
 
 	public void setMisPlanes(ArrayList<Plan> misPlanes) {
 		this.misPlanes = misPlanes;
+	}
+
+
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+
+
+	public double getTotal() {
+		return total;
+	}
+
+
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	
 }

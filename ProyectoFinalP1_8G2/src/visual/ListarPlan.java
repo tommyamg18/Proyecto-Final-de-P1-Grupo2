@@ -39,7 +39,6 @@ public class ListarPlan extends JDialog {
 	public Plan aux=null;
 	public static Object[] filas;
 	private JPanel panel;
-	private String cod;
 	
 	/**
 	 * Launch the application.
@@ -120,13 +119,14 @@ public class ListarPlan extends JDialog {
 				btnEliminar.setEnabled(false);
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Plan aux = Altice.getInstance().consultarPlan(cod);
 							if(aux!=null) {
 							int option = JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar el plan: "+aux.getCodPlan(), "Confirmación", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
 								Altice.getInstance().eliminarPlan(aux);
 								llenarTabla();
 								btnEliminar.setEnabled(false);
+								btnVer.setEnabled(false);
+
 							}
 						}
 						
