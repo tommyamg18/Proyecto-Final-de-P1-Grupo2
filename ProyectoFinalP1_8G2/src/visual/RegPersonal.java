@@ -205,7 +205,8 @@ public class RegPersonal extends JDialog {
 								Double sueldo = Double.parseDouble(txtSueldo.getText());
 								String password = txtPass.getText();
 								String puesto = txtPuesto.getText();
-								Administrativo aux = new Administrativo(cedula, nombre, telefono, direccion, password,sueldo, puesto);		
+								String tipo = cmbTipo.getSelectedItem().toString();
+								Administrativo aux = new Administrativo(cedula, nombre, telefono, direccion, password,sueldo,tipo, puesto);		
 								Altice.getInstance().registrarPersonal(aux);
 								JOptionPane.showMessageDialog(null, "Administrativo registrado satisfactoriamente", null, JOptionPane.INFORMATION_MESSAGE, null);
 								clear();
@@ -219,7 +220,8 @@ public class RegPersonal extends JDialog {
 								String direccion = txtDireccion.getText();
 								Double sueldo = Double.parseDouble(txtSueldo.getText());
 								String password = txtPass.getText();
-								Comercial aux = new Comercial(cedula, nombre, telefono, direccion, password,sueldo,-1);		
+								String tipo = cmbTipo.getSelectedItem().toString();
+								Comercial aux = new Comercial(cedula, nombre, telefono, direccion, password,sueldo,tipo,-1);		
 								Altice.getInstance().registrarPersonal(aux);
 								JOptionPane.showMessageDialog(null, "Comercial registrado satisfactoriamente", null, JOptionPane.INFORMATION_MESSAGE, null);
 								clear();

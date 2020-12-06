@@ -2,6 +2,7 @@ package logic;
                                                         
 import java.util.ArrayList;
 
+
 public class Altice {
 	
 	private ArrayList<Cliente> misClientes;
@@ -11,6 +12,7 @@ public class Altice {
 	private static Altice altice = null;
 	public static Cliente miCliente;
 	public static Factura factura;
+	private static Personal loginPersonal;
 
 	public int planCod = 1;
 	public int factCod = 1;
@@ -215,6 +217,14 @@ public class Altice {
 		this.auxFactCod = auxFactCod;
 	}
 
+	public static Personal getLoginPersonal() {
+		return loginPersonal;
+	}
+
+	public static void setLoginPersonal(Personal loginPersonal) {
+		Altice.loginPersonal = loginPersonal;
+	}
+
 	public void eliminarCliente(Cliente aux) {
 		if(chequeoCliente(aux.getCedula())) {
 			int i = indexCliente(aux);
@@ -238,6 +248,17 @@ public class Altice {
 
 	public void insertarCliente(Cliente newCliente) {
 		misClientes.add(newCliente);
+	}
+	
+	public boolean confirmarLogin(String text, String text2) {
+		boolean login = false;
+		for (Personal personal : miPersonal) {
+			if(personal.getCedula().equals(text) && personal.getPassword().equals(text2)){
+				loginPersonal = personal;
+				login = true;
+			}
+		}
+		return login;
 	}
 	
 	

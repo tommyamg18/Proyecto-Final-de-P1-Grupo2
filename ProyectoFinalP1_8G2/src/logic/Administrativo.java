@@ -6,8 +6,8 @@ public class Administrativo extends Personal {
 	
 
 	public Administrativo(String cedula, String nombre, String telefono, String direccion, String password,
-			double salarioMes, String puesto) {
-		super(cedula, nombre, telefono, direccion, password, salarioMes);
+			double salarioMes,String tipo, String puesto) {
+		super(cedula, nombre, telefono, direccion, password, salarioMes,tipo);
 		this.puesto = puesto;
 	}
 

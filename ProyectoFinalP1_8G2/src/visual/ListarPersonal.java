@@ -39,9 +39,7 @@ public class ListarPersonal extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	 public static DefaultTableModel modelo;
 	 public static Object[] filas;
-	 private String ced;
 	 private JTable table;
-	 private JButton btnEliminar;
 	 private JPanel panel;
 	 private JPanel panel_1;
 	 private JLabel lblNewLabel;
@@ -99,8 +97,6 @@ public class ListarPersonal extends JDialog {
 							public void mouseClicked(MouseEvent e) {
 								int seleccion = table.getSelectedRow();
 								if(seleccion!=-1){
-								  btnEliminar.setEnabled(true);
-								  ced = (String)table.getModel().getValueAt(seleccion, 0);
 								}
 							}
 						});
@@ -124,7 +120,7 @@ public class ListarPersonal extends JDialog {
 
 					}
 				});
-				cmbTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Administrativo", "Comercial"}));
+				cmbTipo.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Administrativo", "Comercial"}));
 				cmbTipo.setBounds(117, 18, 128, 20);
 				panel.add(cmbTipo);
 			}
@@ -133,26 +129,6 @@ public class ListarPersonal extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				btnEliminar = new JButton("Eliminar");
-				btnEliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						/*Personal aux = Altice.getInstance().con
-						if(aux!=null) {
-						int option = JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar el personal: "+aux.getCodPlan(), "Confirmación", JOptionPane.WARNING_MESSAGE);
-						if(option == JOptionPane.OK_OPTION) {
-							Altice.getInstance().eliminarPlan(aux);
-							llenarTabla(0);
-							btnEliminar.setEnabled(false);
-						}
-					}*/
-						
-					}
-				});
-				btnEliminar.setActionCommand("OK");
-				buttonPane.add(btnEliminar);
-				getRootPane().setDefaultButton(btnEliminar);
-			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {

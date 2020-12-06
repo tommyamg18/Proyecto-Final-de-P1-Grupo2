@@ -69,6 +69,9 @@ public class Principal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_1 = new JMenu("Facturaci\u00F3n");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
+		mnNewMenu_1.setEnabled(true);
+	    }*/
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Crear");
