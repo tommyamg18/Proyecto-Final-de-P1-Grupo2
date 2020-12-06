@@ -8,9 +8,11 @@ public abstract class Personal {
 	protected String direccion;
 	protected String password;
 	protected double salarioMes;
+	private String tipo;
+
 	
 	public Personal(String cedula, String nombre, String telefono, String direccion, String password,
-			double salarioMes) {
+			double salarioMes, String tipo) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -18,6 +20,7 @@ public abstract class Personal {
 		this.direccion = direccion;
 		this.password = password;
 		this.salarioMes = salarioMes;
+		this.tipo = tipo;
 	}
 
 	public String getCedula() {
@@ -68,6 +71,14 @@ public abstract class Personal {
 		this.salarioMes = salarioMes;
 	}
 	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	public abstract double CalSalario();
 	
 }	

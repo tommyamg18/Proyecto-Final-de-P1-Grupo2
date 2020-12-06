@@ -6,8 +6,8 @@ public class Comercial extends Personal {
 	
 	
 	public Comercial(String cedula, String nombre, String telefono, String direccion, String password,
-			double salarioMes, int cantventas) {
-		super(cedula, nombre, telefono, direccion, password, salarioMes);
+			double salarioMes,String tipo, int cantventas) {
+		super(cedula, nombre, telefono, direccion, password, salarioMes,tipo);
 		this.cantventas = cantventas;
 	}
 
