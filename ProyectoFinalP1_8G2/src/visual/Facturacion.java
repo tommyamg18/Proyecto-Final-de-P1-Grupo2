@@ -335,7 +335,10 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						Factura aux = null;
 						String codFactura = txtCodFac.getText();
-						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),Double.valueOf(txtTotal.getText()),true);
+						miCliente.setMisPlanes(cargarPlanes());
+						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),total,true);
+						aux.setTotal(Double.valueOf(txtTotal.getText()));
+						System.out.println(aux.getTotal());
 						Altice.getInstance().crearFactura(aux);
 					    JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
@@ -423,6 +426,7 @@ public class Facturacion extends JDialog {
 			txtISC.setText(String.valueOf(Double.valueOf(d.format(total*0.10))));
 			total = total +total*0.30;
 		txtTotal.setText(String.valueOf(Double.valueOf(d.format(total))));
+		
 	}
 	private void clean() {
 		txtCodFac.setText("F-"+Altice.getInstance().getFactCod());		

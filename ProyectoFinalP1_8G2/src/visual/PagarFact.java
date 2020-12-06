@@ -367,6 +367,7 @@ public class PagarFact extends JDialog {
 		
 	}
 
+
 	private void cargarSeleccion() {
 		cbxDetalle.removeAllItems();
 		for (String Seleccion : FacturarId) {
