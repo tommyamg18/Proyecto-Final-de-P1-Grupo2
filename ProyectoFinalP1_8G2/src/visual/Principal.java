@@ -55,6 +55,9 @@ public class Principal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Clientes");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
+		mnNewMenu.setEnabled(true);
+	    }*/
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar ");
@@ -101,6 +104,9 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(mntmListar);
 		
 		JMenu mnNewMenu_2 = new JMenu("Planes");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+		mnNewMenu_2.setEnabled(true);
+	    }*/
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear");
@@ -126,6 +132,9 @@ public class Principal extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
 		JMenu mnNewMenu_3 = new JMenu("Personal");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+		mnNewMenu_3.setEnabled(true);
+	    }*/
 		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar personal");
@@ -151,6 +160,9 @@ public class Principal extends JFrame {
 		mnNewMenu_3.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_4 = new JMenu("Estadisticas");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+		mnNewMenu_4.setEnabled(true);
+	    }*/
 		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Estadistica #1");
@@ -167,6 +179,23 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Estadistica #2");
 		mnNewMenu_4.add(mntmNewMenuItem_9);
+		
+		JMenu mnNewMenu_5 = new JMenu("Reportes");
+		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+		mnNewMenu_5.setEnabled(true);
+	    }*/
+		menuBar.add(mnNewMenu_5);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Cantidad de Personal");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteCantidaddePersonal reporte1 = new ReporteCantidaddePersonal();
+				reporte1.setModal(true);
+				reporte1.setLocationRelativeTo(null);
+				reporte1.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
