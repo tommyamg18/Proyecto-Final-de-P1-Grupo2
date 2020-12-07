@@ -32,8 +32,10 @@ public class Principal extends JFrame {
 				try {
 					int aux1 = 1;
 					int aux2 = 1;
+					int aux3 = 1;
 					Altice.getInstance().setPlanCod(aux1);
 					Altice.getInstance().setFactCod(aux2);
+					Altice.getInstance().setNunCon(aux3);
 					Principal frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -87,9 +89,6 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_2);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Pago");
-		mnNewMenu_1.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
 		mntmListar.addActionListener(new ActionListener() {

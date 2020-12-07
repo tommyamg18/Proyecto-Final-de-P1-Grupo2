@@ -7,7 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -50,6 +55,7 @@ public class ListaFactura extends JDialog {
 	public Factura aux2=null;
 	public String aux;
 	public JButton btnModificar;
+	public JButton btnPrueba;
 
 
 	/**
@@ -91,6 +97,7 @@ public class ListaFactura extends JDialog {
 								identificacion = (String)table.getModel().getValueAt(seleccionarFactura, 2);
 								cedula = (String)table.getModel().getValueAt(seleccionarFactura, 0);
 								btnModificar.setEnabled(true);
+								btnPrueba.setEnabled(true);
 								aux2 = Altice.getInstance().buscarCodigo((String)modelo.getValueAt(seleccionarFactura, 0));
 						}
 					 }
@@ -174,6 +181,21 @@ public class ListaFactura extends JDialog {
 			txtTelefono.setColumns(10);
 			txtTelefono.setBounds(319, 55, 119, 23);
 			panel_2.add(txtTelefono);
+			
+			btnPrueba = new JButton("Prueba");
+			btnPrueba.setEnabled(false);
+			btnPrueba.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					crearFac();
+					cargarTabla();	
+					btnPrueba.setEnabled(false);
+					btnModificar.setEnabled(false);
+				}
+
+		
+			});
+			btnPrueba.setBounds(681, 66, 171, 41);
+			panel.add(btnPrueba);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -189,10 +211,13 @@ public class ListaFactura extends JDialog {
 				});
 				
 				btnModificar = new JButton("Pagar");
+				btnModificar.setEnabled(false);
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						PagarFact newp = new PagarFact(0,aux2.getMicliente());
+						PagarFact newp = new PagarFact(aux2);
 						newp.setVisible(true);
+						btnPrueba.setEnabled(false);
+						btnModificar.setEnabled(false);
 						}
 				});
 				buttonPane.add(btnModificar);
@@ -200,7 +225,7 @@ public class ListaFactura extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-			
+			creacionFac();
 			cargarTabla();	
 			txtCedula.setText(cliente.getCedula());
 			txtNombre.setText(cliente.getNombre());
@@ -209,9 +234,70 @@ public class ListaFactura extends JDialog {
 	
 
 	}
-	
+	public void crearFac() {
+		
+		Factura aux = new Factura("F-"+Altice.getInstance().getFactCod(), aux2.getMicliente(), aux2.getEmpleado(), aux2.getMisPlanes(), aux2.getTotal(),false,aux2.getNunCon());
+		Altice.getInstance().crearFactura(aux);
+	}
+	public void creacionFac() {
+		Factura aux;
+		for (Factura factura : Altice.getAltice().getMisFacturas()) {
+			
+	        if(difMeses(factura)==1 & factura.isPagada()) {
+	        	aux = crearFactura(factura);
+	        	}
+	        if(difMeses(factura)==1 & !factura.isPagada()) {
+	        	aux = crearFactura(factura);
+	        	aplicarMora(aux);
+	        		
+	        	}
+		}
+	}
+	private void aplicarMora(Factura aux3) {
+		aux3.getMicliente().setAtraso((aux3.getMicliente().getAtraso()+1));
+		int i = aux3.getMicliente().getAtraso();
+		if(i==1) {
+			aux3.setMora(aux3.getTotal()*0.05);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+		}
+		if(i==2) {
+			aux3.setMora(aux3.getTotal()*0.05);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
 
+		}
+		if(i==3) {
+			aux3.setMora(aux3.getTotal()*0.1);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+		}
+	}
+	public int difMeses(Factura factura){
+		
+		Date creacion= factura.getFecha();
+        Calendar fecha = dateToCalendar(creacion);
+        Calendar hoy = Calendar.getInstance();
+        
+		int diffYear = fecha.get(Calendar.YEAR) - hoy.get(Calendar.YEAR);
+		int diffMonth =diffYear * 12 +  fecha.get(Calendar.MONTH) - hoy.get(Calendar.MONTH);
+		int diferencia=0;		
+		if(hoy.get(Calendar.DAY_OF_MONTH)==fecha.get(Calendar.DAY_OF_MONTH)){
+			diferencia=diffMonth;
+		}
+		return diferencia;
+	}
+	private Factura crearFactura(Factura factura) {
+		Factura aux = new Factura("F-"+Altice.getInstance().getFactCod(), factura.getMicliente(), factura.getEmpleado(), factura.getMisPlanes(), factura.getTotal(),false,factura.getNunCon());
+		Altice.getInstance().crearFactura(aux);
+		return aux;
+		// TODO Auto-generated method stub
+		
+	}
+	public Calendar dateToCalendar(Date date) {
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+
+    }
 
 	public void cargarTabla() {
 		modelo.setRowCount(0);
@@ -220,16 +306,15 @@ public class ListaFactura extends JDialog {
 		for (Factura factura : Altice.getInstance().getMisFacturas()) {
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
 			fila[0]=factura.getCodFact();
-			fila[1]=factura.getMicliente().getNombre();
-			fila[2]= "Empleado 1";
-			//	fila[2]=factura.getEmpleado().getNombre();
-			fila[3]=factura.getFecha();
+			fila[1]= "Empleado 1";
+			fila[2]=Altice.getInstance().fechaFormSimp(factura.getFecha());
+			
+			//	fila[1]=factura.getEmpleado().getNombre();
+			
 
 			
 			modelo.addRow(fila);
 			}
 		}
 	}
-	
-	
 }

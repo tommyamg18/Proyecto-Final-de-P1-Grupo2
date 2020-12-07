@@ -1,6 +1,11 @@
 package logic;
                                                         
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import java.util.Date;
+
 
 
 public class Altice {
@@ -13,11 +18,15 @@ public class Altice {
 	public static Cliente miCliente;
 	public static Factura factura;
 	private static Personal loginPersonal;
+	
 
 	public int planCod = 1;
+	public int nunCon = 1;
+	
 	public int factCod = 1;
 	public int auxPlanCod;
 	public int auxFactCod;
+	public int auxnunCon;
 	
 	public Altice() {
 		super();
@@ -32,6 +41,13 @@ public class Altice {
 			altice = new Altice();
 		}
 		return altice;
+	}
+	public int getNunCon() {
+		return nunCon;
+	}
+
+	public void setNunCon(int nunCon) {
+		this.nunCon = nunCon;
 	}
 		
 	
@@ -301,7 +317,11 @@ public class Altice {
 		}
 		return login;
 	}
-	
+	public String fechaFormSimp(Date fecha){
+		SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+		return formatoFecha.format(fecha);
+
+	}	
 	
 	
 

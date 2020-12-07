@@ -48,19 +48,14 @@ public class PagarFact extends JDialog {
 	 */
 	private final JPanel contentPanel = new JPanel();
 	private String cedula;
-	private JList listFacturar;
-	private JList listDisponible;
 	private String identificacion;
 	private JTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 	private JTextField txtCodFac;
-	private JComboBox cbxDetalle;
 	private int index=-1;
 	private int indexBack =-1;
-	private JButton btnAgregar;
-	private JButton btnQuitar;
 	private String seleccion = "<Todos>";
     private ArrayList<String> Disponible;
     private ArrayList<String> DisponibleId=new ArrayList<>();
@@ -68,7 +63,6 @@ public class PagarFact extends JDialog {
 	private ArrayList<String> FacturarId = new ArrayList<>();
 	private double total=0;
 	public Plan aux=null;
-	private String cod;
  	ArrayList<Plan> plan = new ArrayList<>();
  	private JTextField txtTotal;
  	private JTextField txtISC;
@@ -81,7 +75,7 @@ public class PagarFact extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			PagarFact dialog = new PagarFact(0,null);
+			PagarFact dialog = new PagarFact(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -92,16 +86,16 @@ public class PagarFact extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PagarFact(int mod, Cliente miCliente) {
+	public PagarFact( Factura miFac) {
 		setTitle("Pago Factura");
-		setBounds(100, 100, 1086, 688);
+		setBounds(100, 100, 1098, 388);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);
-		
+				
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
@@ -171,87 +165,6 @@ public class PagarFact extends JDialog {
 				}
 			}
 			
-			JPanel panel_1 = new JPanel();
-			panel_1.setBackground(new Color(240, 240, 240));
-			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Facturas vencidas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_1.setBounds(26, 208, 429, 288);
-			panel.add(panel_1);
-			panel_1.setLayout(new BorderLayout(0, 0));
-			
-			listDisponible = new JList();
-			listDisponible.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					index = listDisponible.getSelectedIndex();
-					if(index!=-1){
-						btnAgregar.setEnabled(true);
-					}
-				}
-			});
-			panel_1.add(listDisponible, BorderLayout.CENTER);
-			
-			JPanel panel_2 = new JPanel();
-			panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Facturas a pagar:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_2.setBounds(580, 208, 429, 288);
-			panel.add(panel_2);
-			panel_2.setLayout(new BorderLayout(0, 0));
-			
-			listFacturar = new JList();
-			panel_2.add(listFacturar, BorderLayout.CENTER);
-			listFacturar.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					indexBack = listFacturar.getSelectedIndex();
-					if(indexBack!=-1){
-						btnQuitar.setEnabled(true);
-					}
-				}
-			});
-			
-			btnAgregar = new JButton(">>");
-			btnAgregar.setEnabled(false);
-			btnAgregar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(index!=-1){
-						Facturar.add(Disponible.get(index));
-						FacturarId.add(DisponibleId.get(index));
-						Disponible.remove(index);
-						DisponibleId.remove(index);
-						listDisponible.removeAll();
-						listDisponible.setListData(Disponible.toArray());
-						listFacturar.removeAll();
-						listFacturar.setListData(Facturar.toArray());
-						btnAgregar.setEnabled(false);
-						actualizarMonto();
-						cargarSeleccion();
-						}
-				}
-			});
-			btnAgregar.setBounds(473, 241, 92, 41);
-			panel.add(btnAgregar);
-			
-			btnQuitar = new JButton("<<");
-			btnQuitar.setEnabled(false);
-			btnQuitar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(indexBack!=-1){
-						  Disponible.add(Facturar.get(indexBack));
-						  DisponibleId.add(FacturarId.get(indexBack));
-						  Facturar.remove(indexBack);
-						  FacturarId.remove(indexBack);
-						  listDisponible.removeAll();
-						  listDisponible.setListData(Disponible.toArray());
-						  listFacturar.removeAll();
-						  listFacturar.setListData(Facturar.toArray());
-						  btnQuitar.setEnabled(false);
-						  actualizarMonto();
-						  cargarSeleccion();
-						}
-				}
-			});
-			btnQuitar.setBounds(473, 425, 92, 41);
-			panel.add(btnQuitar);
-			
 			txtTotal = new JTextField();
 			txtTotal.setEditable(false);
 			txtTotal.setColumns(10);
@@ -309,22 +222,6 @@ public class PagarFact extends JDialog {
 				txtCodFac.setBounds(139, 167, 236, 39);
 				panel.add(txtCodFac);
 			}
-			{
-				JButton btnNewButton = new JButton("Detalle");
-				btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Plan miPlan=Altice.getInstance().consultarPlan(cbxDetalle.getSelectedItem().toString());
-						CrearPlan newPlan = new CrearPlan(1,miPlan, null);
-						newPlan.setVisible(true);
-					}
-				});
-				btnNewButton.setBounds(590, 497, 171, 41);
-				panel.add(btnNewButton);
-			}
-			
-			cbxDetalle = new JComboBox();
-			cbxDetalle.setBounds(787, 498, 171, 41);
-			panel.add(cbxDetalle);
 			
 			
 		}
@@ -334,13 +231,11 @@ public class PagarFact extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Facturar");
+				JButton okButton = new JButton("Pagar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						Factura aux = null;
-						String codFactura = txtCodFac.getText();
-						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),Double.valueOf(txtTotal.getText()),false);
-						JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
+						miFac.setPagada(true);
+						JOptionPane.showMessageDialog(null, "Pago satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 						dispose();
 					}
@@ -360,89 +255,32 @@ public class PagarFact extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		if(miCliente!=null) {
-			cargarCliente(miCliente);
+		if(miFac!=null) {
+			cargarDatos(miFac.getMicliente());
+			actualizarMonto(miFac);
 		}
-		cargarListaDisponible(seleccion);
 		
 	}
 
 
-	private void cargarSeleccion() {
-		cbxDetalle.removeAllItems();
-		for (String Seleccion : FacturarId) {
-			cbxDetalle.addItem(Seleccion);
-		}
-	}
 
-	protected void cargarCliente(Cliente client) {	
+	protected void cargarDatos(Cliente client) {	
 		txtCedula.setText(client.getCedula());
 		txtNombre.setText(client.getNombre());
 		txtDireccion.setText(client.getDireccion());
 		txtTelefono.setText(client.getTelefono());
 	}
 
-	private void cargarListaDisponible( String seleccion) {
-		Disponible = new ArrayList<>();
-		if(seleccion.equalsIgnoreCase("<Todos>")){ 
-		 for (int i = 0; i < Altice.getInstance().getMisPlanes().size(); i++) {
-
-		   Disponible.add(new String(Altice.getInstance().getMisFacturas().get(i).getCodFact() +" : "+Altice.getInstance().getMisFacturas().get(i).getFecha()+" : "+Math.round(Altice.getInstance().getMisPlanes().get(i).getPrecio()*100.0)/100.0));
-		   DisponibleId.add(new String(Altice.getInstance().getMisPlanes().get(i).getCodPlan()));
-		  }
-		}else{
-		/*	 for (int i = 0; i < Altice.getInstance().getMisPlanes().size(); i++) {
-			  if(seleccion.equalsIgnoreCase("<Queso Cilindrico>")) {
-					 nombre = "Queso Cilíndrico ";
-					 planDisponible.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()+":"+nombre+":"+Math.round(Fabrica.getInstance().getMisQuesos().get(i).calcularPrecio()*100.0)/100.0));
-					 planDisponibleId.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()));
-			  } if(seleccion.equalsIgnoreCase("<Queso Cilindrico Hueco>")) {
-					 nombre = "Queso Cilíndrico Hueco ";
-					 planDisponible.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()+":"+nombre+":"+Math.round(Fabrica.getInstance().getMisQuesos().get(i).calcularPrecio()*100.0)/100.0));
-					 planDisponibleId.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()));
-			  } if(seleccion.equalsIgnoreCase("<Queso Esferico>")) {
-					 nombre = "Queso Esférico ";
-					 planDisponible.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()+":"+nombre+":"+Math.round(Fabrica.getInstance().getMisQuesos().get(i).calcularPrecio()*100.0)/100.0));
-					 planDisponibleId.add(new String(Fabrica.getInstance().getMisQuesos().get(i).getIdQueso()));
-				 }
-		 }	*/
-		}
-		listDisponible.removeAll();
-		listDisponible.setListData(Disponible.toArray());
-		
-	}
-	public void actualizarMonto() {
-		ArrayList<Factura> aux = Altice.getInstance().getMisFacturas();
-		total = 0;
-			for (Factura plan : aux) {
-				for(int i=0; i<FacturarId.size();i++) {
-					if(plan.getCodFact().equalsIgnoreCase(FacturarId.get(i))) {
-						total= total + plan.getTotal();
-					}
-				}					
-			}
-			DecimalFormat d = new DecimalFormat("######.##");
+	public void actualizarMonto(Factura miFac) {
+		DecimalFormat d = new DecimalFormat("######.##");
+			total = miFac.getTotal();
+			txtTotal.setText(String.valueOf(Double.valueOf(d.format(total))));
+			total = total-total*0.3;
 			txtITBIS.setText(String.valueOf(Double.valueOf(d.format(total*0.18))));
 			txtCDS.setText(String.valueOf(Double.valueOf(d.format(total*0.02))));
 			txtISC.setText(String.valueOf(Double.valueOf(d.format(total*0.10))));
-			total = total +total*0.30;
-		txtTotal.setText(String.valueOf(Double.valueOf(d.format(total))));
 	}
 	private void clean() {
 		txtCodFac.setText("F-"+Altice.getInstance().getFactCod());		
 		}
-	public ArrayList<Plan> cargarPlanes() {
-		ArrayList<Plan> aux= new ArrayList<>();
-		ArrayList<Plan> todos = Altice.getInstance().getMisPlanes();
-		for (Plan plan : todos) {
-			for(int i=0; i<FacturarId.size();i++) {
-				if(plan.getCodPlan().equalsIgnoreCase(FacturarId.get(i))) {
-				aux.add(plan);
-				}
-			}
-			
-		}
-		
-		return aux;
-	}
 }

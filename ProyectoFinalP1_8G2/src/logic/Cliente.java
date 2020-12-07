@@ -10,6 +10,8 @@ public class Cliente {
 	private String direccion;
 	private String telefono;
 	private ArrayList<Plan> misPlanes;
+	private boolean paga;
+	private static int atraso=0;
 
 	public String getCedula() {
 		return cedula;
@@ -48,6 +50,18 @@ public class Cliente {
 	}
 	public void setMisPlanes(ArrayList<Plan> misPlanes) {
 		this.misPlanes = misPlanes;
+	}
+	public boolean isPaga() {
+		return paga;
+	}
+	public void setPaga(boolean paga) {
+		this.paga = paga;
+	}
+	public int getAtraso() {
+		return atraso;
+	}
+	public void setAtraso(int atraso) {
+		Cliente.atraso = atraso;
 	}
 	
 	

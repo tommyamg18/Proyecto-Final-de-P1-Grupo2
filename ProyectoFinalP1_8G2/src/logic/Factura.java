@@ -6,18 +6,29 @@ import java.util.Date;
 public class Factura {
 	
 	private String codFact;
+	private int nunCon;
+	public int getNunCon() {
+		return nunCon;
+	}
+
+
+	public void setNunCon(int nunCon) {
+		this.nunCon = nunCon;
+	}
+
+
 	private Cliente micliente;
 	private Comercial empleado;
 	private ArrayList<Plan> misPlanes;
 	private Date fecha;
+	private double mora;
 	private double total;
 	private boolean pagada;
 	
 	
 	
-	
 
-	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes,double total, boolean pagada) {
+	public Factura(String codFact, Cliente micliente, Comercial empleado, ArrayList<Plan> misPlanes,double total, boolean pagada, int nunCon) {
 		super();
 		this.codFact = codFact;
 		this.micliente = micliente;
@@ -26,6 +37,8 @@ public class Factura {
 		this.fecha = new Date();
 		this.total = total;
 		this.pagada = pagada;
+		this.mora = 0;
+		this.nunCon=nunCon;
 	}
 
 
@@ -95,6 +108,16 @@ public class Factura {
 
 	public void setPagada(boolean pagada) {
 		this.pagada = pagada;
+	}
+
+
+	public double getMora() {
+		return mora;
+	}
+
+
+	public void setMora(double mora) {
+		this.mora = mora;
 	}
 	
 }

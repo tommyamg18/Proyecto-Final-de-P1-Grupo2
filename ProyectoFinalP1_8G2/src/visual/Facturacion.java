@@ -336,7 +336,8 @@ public class Facturacion extends JDialog {
 						Factura aux = null;
 						String codFactura = txtCodFac.getText();
 						miCliente.setMisPlanes(cargarPlanes());
-						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),total,true);
+						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),total,true,Altice.getInstance().nunCon);
+						Altice.getInstance().nunCon++;
 						aux.setTotal(Double.valueOf(txtTotal.getText()));
 						System.out.println(aux.getTotal());
 						Altice.getInstance().crearFactura(aux);
