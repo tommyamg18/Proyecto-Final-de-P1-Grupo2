@@ -201,6 +201,14 @@ public class Principal extends JFrame {
 		mnNewMenu_4.add(mntmNewMenuItem_8);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Ingresos de las Facturas por Mes");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GraficaDineroPagado grafica2 = new GraficaDineroPagado();
+				//grafica1.setModal(true);
+				grafica2.setLocationRelativeTo(null);
+				grafica2.setVisible(true);
+			}
+		});
 		mntmNewMenuItem_9.setIcon(new ImageIcon(Principal.class.getResource("/images/grafica.png")));
 
 		mnNewMenu_4.add(mntmNewMenuItem_9);

@@ -2,8 +2,10 @@ package logic;
                                                         
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -79,6 +81,8 @@ public class Altice {
 	}
 	
 	public ArrayList<Integer> cantidadUsuariosCadaPlan(){
+		ArrayList<Integer> cantidad = new ArrayList<>();
+
 		int cantVoz = 0;
 		int cantInternet= 0;
 		int cantCable = 0;
@@ -86,8 +90,7 @@ public class Altice {
 		int cantVozInternet = 0;
 		int cantCableInternet = 0;
 		int cantTriple = 0;
-
-		ArrayList<Integer> cantidad = new ArrayList<>();
+		
 		for (Cliente cliente: misClientes) {
 			System.out.println(cliente.getCedula());
 		for (Plan plan : cliente.getMisPlanes()) {
@@ -117,6 +120,95 @@ public class Altice {
 		cantidad.add(cantCableInternet);
 		cantidad.add(cantTriple);
 		return cantidad;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public ArrayList<Double> cantidadDeDineroMes() {
+		ArrayList<Double> totalCadaMes = new ArrayList<>();
+		/*Calendar fecha = Calendar.getInstance();
+		int mes = fecha.get(Calendar.MONTH);*/
+		
+
+		double enero = 0;
+		double febrero = 0;
+		double marzo = 0;
+		double abril = 0;
+		double mayo = 0;
+		double junio = 0;
+		double julio = 0;
+		double agosto = 0;
+		double septiembre = 0;
+		double octubre = 0;
+		double noviembre = 0;
+		double diciembre = 0;
+		
+		
+		for (Factura factura : misFacturas) {
+			if (factura.getFecha().getMonth() == 0 && factura.isPagada()) {
+				enero = enero + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 1 && factura.isPagada()) {
+				febrero = febrero + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 2 && factura.isPagada()) {
+				marzo = marzo + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 3 && factura.isPagada()) {
+				abril = abril + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 4 && factura.isPagada()) {
+				mayo = mayo + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 5 && factura.isPagada()) {
+				junio = junio + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 6 && factura.isPagada()) {
+				julio = julio + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 7 && factura.isPagada()) {
+				agosto = agosto + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 8 && factura.isPagada()) {
+				septiembre = septiembre + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 9 && factura.isPagada()) {
+				octubre = octubre + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 10 && factura.isPagada()) {
+				noviembre = noviembre + factura.getTotal();
+			}
+			
+			if (factura.getFecha().getMonth() == 11 && factura.isPagada()) {
+				diciembre = diciembre + factura.getTotal();
+			}
+
+		}
+		
+		totalCadaMes.add(enero);
+		totalCadaMes.add(febrero);
+		totalCadaMes.add(marzo);
+		totalCadaMes.add(abril);
+		totalCadaMes.add(mayo);
+		totalCadaMes.add(junio);
+		totalCadaMes.add(julio);
+		totalCadaMes.add(agosto);
+		totalCadaMes.add(septiembre);
+		totalCadaMes.add(octubre);
+		totalCadaMes.add(noviembre);
+		totalCadaMes.add(diciembre);
+		
+		
+		return totalCadaMes;
 	}
 	
 	public Cliente buscarCliente(String cedula) {

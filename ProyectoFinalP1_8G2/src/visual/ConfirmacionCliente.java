@@ -106,7 +106,7 @@ public class ConfirmacionCliente extends JDialog {
 		rdbtnNuevo.setBounds(268, 62, 167, 41);
 		panel.add(rdbtnNuevo);
 		
-		rdbtnExistente = new JRadioButton("Existentente");
+		rdbtnExistente = new JRadioButton("Existente");
 		rdbtnExistente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rdbtnNuevo.setSelected(false);
@@ -186,6 +186,7 @@ public class ConfirmacionCliente extends JDialog {
 			rdbtnExistente.setVisible(false);
 			txtCed.setEnabled(true);
 			txtCed.setEditable(true);
+			txtCed.setVisible(true);
 			lblTitulo.setText("Digite Cedula de cliente que \n quiere ver consultar");
 		}
 	}

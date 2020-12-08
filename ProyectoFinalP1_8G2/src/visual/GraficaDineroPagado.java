@@ -18,11 +18,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import logic.Altice;
 
+public class GraficaDineroPagado extends JFrame {
 
-public class GraficaUsuariosPlan extends JFrame {
 	JPanel panel;
-    public GraficaUsuariosPlan(){
-        setTitle("Grafico De La Cantidad De Usuarios Por Cada Plan");
+    public GraficaDineroPagado(){
+        setTitle("Grafico Del Dinero Pagado");
         setSize(800,500);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -34,20 +34,25 @@ public class GraficaUsuariosPlan extends JFrame {
         getContentPane().add(panel);
         // Fuente de Datos
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        ArrayList<Integer> cant = Altice.getInstance().cantidadUsuariosCadaPlan();
-        //cant.set(0, 5);
-        dataset.setValue(cant.get(0), "Cable", "");
-        dataset.setValue(cant.get(1), "Voz", "");
-        dataset.setValue(cant.get(2), "Internet", "");
-        dataset.setValue(cant.get(3), "Voz y Cable", "");
-        dataset.setValue(cant.get(4), "Voz e Internet", "");
-        dataset.setValue(cant.get(5), "Cable e Internet", "");
-        dataset.setValue(cant.get(6), "Voz, Cable e Internet", "");
+        ArrayList<Double> dinero = Altice.getInstance().cantidadDeDineroMes();
+        //cant.set(0);
+        dataset.setValue(dinero.get(0), "Enero", "");
+        dataset.setValue(dinero.get(1), "Febrero", "");
+        dataset.setValue(dinero.get(2), "Marzo", "");
+        dataset.setValue(dinero.get(3), "Abril", "");
+        dataset.setValue(dinero.get(4), "Mayo", "");
+        dataset.setValue(dinero.get(5), "Junio", "");
+        dataset.setValue(dinero.get(6), "Julio", "");
+        dataset.setValue(dinero.get(7), "Agosto", "");
+        dataset.setValue(dinero.get(8), "Septiembre", "");
+        dataset.setValue(dinero.get(9), "Octubre", "");
+        dataset.setValue(dinero.get(10),"Noviembre", "");
+        dataset.setValue(dinero.get(11),"Diciembre", "");
 
         
         // Creando el Grafico
         JFreeChart chart = ChartFactory.createBarChart3D
-        ("Usuarios Por Plan","Planes", "Cantidad de usuarios", 
+        ("Dinero de Facturas Pagadas","Pagos Realizados Por Mes", "Cantidad de Dinero Por Mes", 
         dataset, PlotOrientation.VERTICAL, true,true, false);
         chart.setBackgroundPaint(Color.white);
         chart.getTitle().setPaint(Color.black); 
@@ -55,10 +60,11 @@ public class GraficaUsuariosPlan extends JFrame {
         p.setRangeGridlinePaint(Color.red); 
         // Mostrar Grafico
         ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setMinimumDrawWidth(800);
         panel.add(chartPanel);
     }
     
-   /* public static void main(String args[]){
-        new GraficaUsuariosPlan().setVisible(true);
+    /*public static void main(String args[]){
+        new GraficaDineroPagado().setVisible(true);
     }*/
 }
