@@ -30,6 +30,12 @@ public class Principal extends JFrame {
 	 */
 	private static final long serialVersionUID = -2338171001859749383L;
 	private JPanel contentPane;
+	private JMenu MenuCliente;
+	private JMenu MenuFacturacion;
+    private JMenu MenuPlanes;
+    private JMenu MenuEstadistica;
+    private JMenu MenuReportes;
+    private JMenu MenuPersonal;
 
 	/**
 	 * Launch the application.
@@ -85,12 +91,21 @@ public class Principal extends JFrame {
 			}
 		});
 		
-		JMenu mnNewMenu = new JMenu("Clientes");
-		mnNewMenu.setIcon(new ImageIcon(Principal.class.getResource("/images/cliente.png")));
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
-		mnNewMenu.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu);
+		MenuCliente = new JMenu("Clientes");
+		MenuCliente.setEnabled(false);
+		MenuCliente.setIcon(new ImageIcon(Principal.class.getResource("/images/cliente.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuCliente.setEnabled(true);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuCliente.setEnabled(true);
+
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+				MenuCliente.setEnabled(false);
+
+			}
+		menuBar.add(MenuCliente);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar ");
 		mntmNewMenuItem_1.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
@@ -103,15 +118,22 @@ public class Principal extends JFrame {
 				lisClient.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_1);
+		MenuCliente.add(mntmNewMenuItem_1);
 		
-		JMenu mnNewMenu_1 = new JMenu("Facturaci\u00F3n");
-		mnNewMenu_1.setIcon(new ImageIcon(Principal.class.getResource("/images/facturacion.png")));
+		MenuFacturacion = new JMenu("Facturaci\u00F3n");
+		MenuFacturacion.setEnabled(false);
+		MenuFacturacion.setIcon(new ImageIcon(Principal.class.getResource("/images/facturacion.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuFacturacion.setEnabled(true);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuFacturacion.setEnabled(true);
 
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
-		mnNewMenu_1.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu_1);
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+			MenuFacturacion.setEnabled(false);
+			}
+		menuBar.add(MenuFacturacion);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Crear");
 		mntmNewMenuItem_2.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
@@ -123,7 +145,7 @@ public class Principal extends JFrame {
 				nue.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		MenuFacturacion.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
 		mntmListar.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
@@ -137,15 +159,22 @@ public class Principal extends JFrame {
 
 			}
 		});
-		mnNewMenu_1.add(mntmListar);
+		MenuFacturacion.add(mntmListar);
 		
-		JMenu mnNewMenu_2 = new JMenu("Planes");
-		mnNewMenu_2.setIcon(new ImageIcon(Principal.class.getResource("/images/planes.png")));
+		MenuPlanes = new JMenu("Planes");
+		MenuPlanes.setEnabled(false);
+		MenuPlanes.setIcon(new ImageIcon(Principal.class.getResource("/images/planes.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuPlanes.setEnabled(false);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuPlanes.setEnabled(true);
 
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
-		mnNewMenu_2.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu_2);
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+			MenuPlanes.setEnabled(true);
+			}
+		menuBar.add(MenuPlanes);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear");
 		mntmNewMenuItem_4.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
@@ -158,7 +187,7 @@ public class Principal extends JFrame {
 				crearPlan.setVisible(true);
 			}
 		});
-		mnNewMenu_2.add(mntmNewMenuItem_4);
+		MenuPlanes.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listar");
 		mntmNewMenuItem_5.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
@@ -170,15 +199,22 @@ public class Principal extends JFrame {
 				listarPlan.setVisible(true);
 			}
 		});
-		mnNewMenu_2.add(mntmNewMenuItem_5);
+		MenuPlanes.add(mntmNewMenuItem_5);
 		
-		JMenu mnNewMenu_3 = new JMenu("Personal");
-		mnNewMenu_3.setIcon(new ImageIcon(Principal.class.getResource("/images/personal.png")));
+		MenuPersonal = new JMenu("Personal");
+		MenuPersonal.setEnabled(false);
+		MenuPersonal.setIcon(new ImageIcon(Principal.class.getResource("/images/personal.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuPersonal.setEnabled(false);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuPersonal.setEnabled(true);
 
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
-		mnNewMenu_3.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu_3);
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+			MenuPersonal.setEnabled(true);
+			}
+		menuBar.add(MenuPersonal);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
 		mntmNewMenuItem_6.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
@@ -191,7 +227,7 @@ public class Principal extends JFrame {
 				regpersonal.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_6);
+		MenuPersonal.add(mntmNewMenuItem_6);
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar ");
 		mntmNewMenuItem_7.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
@@ -203,15 +239,22 @@ public class Principal extends JFrame {
 				listpersonal.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_7);
+		MenuPersonal.add(mntmNewMenuItem_7);
 		
-		JMenu mnNewMenu_4 = new JMenu("Estadisticas");
-		mnNewMenu_4.setIcon(new ImageIcon(Principal.class.getResource("/images/estadisticas.png")));
+		MenuEstadistica = new JMenu("Estadisticas");
+		MenuEstadistica.setEnabled(false);
+		MenuEstadistica.setIcon(new ImageIcon(Principal.class.getResource("/images/estadisticas.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuEstadistica.setEnabled(false);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuEstadistica.setEnabled(true);
 
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
-		mnNewMenu_4.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu_4);
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+			MenuEstadistica.setEnabled(true);
+			}
+		menuBar.add(MenuEstadistica);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Cantidad de Usuarios por Plan");
 		mntmNewMenuItem_8.setIcon(new ImageIcon(Principal.class.getResource("/images/grafica.png")));
@@ -224,7 +267,7 @@ public class Principal extends JFrame {
 			
 			}
 		});
-		mnNewMenu_4.add(mntmNewMenuItem_8);
+		MenuEstadistica.add(mntmNewMenuItem_8);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Ingresos de las Facturas por Mes");
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
@@ -237,15 +280,22 @@ public class Principal extends JFrame {
 		});
 		mntmNewMenuItem_9.setIcon(new ImageIcon(Principal.class.getResource("/images/grafica.png")));
 
-		mnNewMenu_4.add(mntmNewMenuItem_9);
+		MenuEstadistica.add(mntmNewMenuItem_9);
 		
-		JMenu mnNewMenu_5 = new JMenu("Reportes");
-		mnNewMenu_5.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte.png")));
+		MenuReportes = new JMenu("Reportes");
+		MenuReportes.setEnabled(false);
+		MenuReportes.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte.png")));
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
+			MenuReportes.setEnabled(false);
+		    } 
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			MenuReportes.setEnabled(true);
 
-		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
-		mnNewMenu_5.setEnabled(true);
-	    }*/
-		menuBar.add(mnNewMenu_5);
+			}
+		if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrativo")){
+			MenuReportes.setEnabled(true);
+			}
+		menuBar.add(MenuReportes);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cantidad de Personal");
 		mntmNewMenuItem.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte2.png")));
@@ -258,7 +308,7 @@ public class Principal extends JFrame {
 				reporte1.setVisible(true);
 			}
 		});
-		mnNewMenu_5.add(mntmNewMenuItem);
+		MenuReportes.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Facturas Pagadas");
 		mntmNewMenuItem_3.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte1.png")));
@@ -270,7 +320,7 @@ public class Principal extends JFrame {
 				reporte2.setVisible(true);
 			}
 		});
-		mnNewMenu_5.add(mntmNewMenuItem_3);
+		MenuReportes.add(mntmNewMenuItem_3);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
