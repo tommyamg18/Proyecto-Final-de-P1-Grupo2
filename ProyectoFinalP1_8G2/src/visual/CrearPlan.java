@@ -325,6 +325,7 @@ public class CrearPlan extends JDialog {
 			panel.add(panel_cable);
 			panel_cable.setLayout(null);
 			
+			
 			JLabel lblNewLabel_8 = new JLabel("Cantidad de Canales:");
 			lblNewLabel_8.setBounds(42, 28, 142, 14);
 			panel_cable.add(lblNewLabel_8);
