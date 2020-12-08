@@ -137,12 +137,19 @@ public class ConfirmacionCliente extends JDialog {
 						if(rdbtnExistente.isSelected()) {
 							Cliente miCliente = Altice.getInstance().buscarCliente(txtCed.getText());
 							if(miCliente!= null) {
-							Facturacion newFact = new Facturacion(0,miCliente);
-							newFact.setVisible(true);
-							dispose();
+								if(miCliente.getAtraso()>=3) {
+									JOptionPane.showMessageDialog(null, "No se pueden generar servicios con pago pendientes de 3 meses, \nPor favor Verificar", "Error", JOptionPane.ERROR_MESSAGE);
+									txtCed.setText("___-_______-_");
+								}else {
+									Facturacion newFact = new Facturacion(0,miCliente);
+									newFact.setVisible(true);
+									dispose();
+								}
+							
+							
 							}else {
 								JOptionPane.showMessageDialog(null, "Cedula No encontrada, \nPor favor Verificar", "Error", JOptionPane.ERROR_MESSAGE);
-								txtCed.setText("");
+								txtCed.setText("___-_______-_");
 							}
 						}else if(rdbtnNuevo.isSelected()) {
 							RegCliente newClient = new RegCliente(0, null);

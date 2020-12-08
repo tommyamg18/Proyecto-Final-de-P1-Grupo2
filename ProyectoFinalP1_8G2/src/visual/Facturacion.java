@@ -337,10 +337,11 @@ public class Facturacion extends JDialog {
 				JButton okButton = new JButton("Facturar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						if( Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
 						Factura aux = null;
 						String codFactura = txtCodFac.getText();
 						miCliente.setMisPlanes(cargarPlanesTotales(miCliente));
-						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),total,true,Altice.getInstance().nunCon);
+						aux = new Factura (codFactura, miCliente,null, cargarPlanes(),total,true,Altice.getInstance().nunCon);
 						Altice.getInstance().nunCon++;
 						aux.setTotal(Double.valueOf(txtTotal.getText()));
 						System.out.println(aux.getTotal());
@@ -348,6 +349,19 @@ public class Facturacion extends JDialog {
 					    JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 						dispose();
+					}else {
+						Factura aux = null;
+						String codFactura = txtCodFac.getText();
+						miCliente.setMisPlanes(cargarPlanesTotales(miCliente));
+						aux = new Factura (codFactura, miCliente,(Comercial) Altice.getLoginPersonal(), cargarPlanes(),total,true,Altice.getInstance().nunCon);
+						Altice.getInstance().nunCon++;
+						aux.setTotal(Double.valueOf(txtTotal.getText()));
+						System.out.println(aux.getTotal());
+						Altice.getInstance().crearFactura(aux);
+					    JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
+						clean();
+						dispose();
+					}
 					}
 				});
 				okButton.setActionCommand("OK");

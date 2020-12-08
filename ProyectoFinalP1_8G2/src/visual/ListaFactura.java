@@ -36,6 +36,8 @@ import logic.Cliente;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 
 public class ListaFactura extends JDialog {
@@ -56,6 +58,7 @@ public class ListaFactura extends JDialog {
 	public String aux;
 	public JButton btnModificar;
 	public JButton btnPrueba;
+	public static int f =9;
 
 
 	/**
@@ -131,7 +134,7 @@ public class ListaFactura extends JDialog {
 			JPanel panel_2 = new JPanel();
 			panel_2.setLayout(null);
 			panel_2.setBorder(new TitledBorder(null, "Datos Del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_2.setBounds(122, 28, 558, 106);
+			panel_2.setBounds(106, 28, 558, 106);
 			panel.add(panel_2);
 			
 			JLabel label = new JLabel("Cedula:");
@@ -187,7 +190,13 @@ public class ListaFactura extends JDialog {
 			btnPrueba.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(aux2!=null) {
-					crearFac();
+					try {
+						crearFac();
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					creacionFac();
 					cargarTabla();	
 					btnPrueba.setEnabled(false);
 					btnModificar.setEnabled(false);
@@ -196,7 +205,7 @@ public class ListaFactura extends JDialog {
 
 		
 			});
-			btnPrueba.setBounds(690, 65, 147, 29);
+			btnPrueba.setBounds(690, 64, 147, 29);
 			panel.add(btnPrueba);
 		}
 		{
@@ -241,8 +250,16 @@ public class ListaFactura extends JDialog {
 	
 
 	}
-	public void crearFac() {
+	
+	public void crearFac() throws ParseException {
 		Factura aux = new Factura("F-"+Altice.getInstance().getFactCod(), aux2.getMicliente(), aux2.getEmpleado(), aux2.getMisPlanes(), aux2.getTotal(),false,aux2.getNunCon());
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		Date date = simpleDateFormat.parse("2020-"+String.valueOf(f)+"-09");
+		f++;        aux.setFecha(date);
+		//FORCE
+        aux.setTotal(aux.getMora()+aux.getTotal());
 		Altice.getInstance().crearFactura(aux);
 	}
 	public void creacionFac() {
@@ -254,8 +271,9 @@ public class ListaFactura extends JDialog {
 	        	}
 	        if(difMeses(factura)==1 & !factura.isPagada()) {
 	        	aux = crearFactura(factura);
+	    		int i = aux.getMicliente().getAtraso()+1;
+	        	aux.getMicliente().setAtraso(i);
 	        	aplicarMora(aux);
-	        		
 	        	}
 		}
 	}
@@ -265,6 +283,7 @@ public class ListaFactura extends JDialog {
 		if(i==1) {
 			aux3.setMora(aux3.getTotal()*0.05);
 			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+			
 		}
 		if(i==2) {
 			aux3.setMora(aux3.getTotal()*0.05);
@@ -312,10 +331,13 @@ public class ListaFactura extends JDialog {
 		for (Factura factura : Altice.getInstance().getMisFacturas()) {
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
 			fila[0]=factura.getCodFact();
-			fila[1]= "Empleado 1";
+			if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
+			fila[1]= "Empreado #1";
+			}else {
+				fila[1]= factura.getEmpleado().getNombre();
+			}
 			fila[2]=Altice.getInstance().fechaFormSimp(factura.getFecha());
 			fila[3]=factura.getTotal()+factura.getMora();
-			//	fila[1]=factura.getEmpleado().getNombre();
 			
 
 			

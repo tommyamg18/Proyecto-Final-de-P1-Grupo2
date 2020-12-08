@@ -198,7 +198,7 @@ public class RegPersonal extends JDialog {
 		panel_admin.add(lblNewLabel_7);
 		
 		txtPuesto = new JTextField();
-		txtNombre.addKeyListener(new KeyAdapter() {
+		txtPuesto.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c=e.getKeyChar();
