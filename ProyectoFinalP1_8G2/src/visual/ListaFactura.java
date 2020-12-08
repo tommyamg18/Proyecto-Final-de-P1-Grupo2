@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class ListaFactura extends JDialog {
 	public String aux;
 	public JButton btnModificar;
 	public JButton btnPrueba;
-	public static int f =9;
+	public static int f =11;
 
 
 	/**
@@ -255,11 +256,14 @@ public class ListaFactura extends JDialog {
 		Factura aux = new Factura("F-"+Altice.getInstance().getFactCod(), aux2.getMicliente(), aux2.getEmpleado(), aux2.getMisPlanes(), aux2.getTotal(),false,aux2.getNunCon());
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-		Date date = simpleDateFormat.parse("2020-"+String.valueOf(f)+"-09");
-		f++;        aux.setFecha(date);
+		System.out.println(aux.getMicliente().getAtraso());
+		Date date = simpleDateFormat.parse("2020-"+String.valueOf(f)+"-08");
+		f--;
+		aux.setFecha(date);
 		//FORCE
-        aux.setTotal(aux.getMora()+aux.getTotal());
+        
+    	aplicarMoraF(aux);
+    	
 		Altice.getInstance().crearFactura(aux);
 	}
 	public void creacionFac() {
@@ -278,22 +282,41 @@ public class ListaFactura extends JDialog {
 		}
 	}
 	private void aplicarMora(Factura aux3) {
-		aux3.getMicliente().setAtraso((aux3.getMicliente().getAtraso()+1));
+		aux3.getMicliente().setAtraso((aux3.getMicliente().getAtraso()));
+		System.out.println(aux3.getMicliente().getAtraso());
 		int i = aux3.getMicliente().getAtraso();
-		if(i==1) {
+		if(i==0) {
 			aux3.setMora(aux3.getTotal()*0.05);
 			aux3.setTotal(aux3.getTotal()+aux3.getMora());
 			
-		}
-		if(i==2) {
+		}else if(i==1) {
 			aux3.setMora(aux3.getTotal()*0.05);
 			aux3.setTotal(aux3.getTotal()+aux3.getMora());
 
-		}
-		if(i==3) {
+		}else if(i==2) {
 			aux3.setMora(aux3.getTotal()*0.1);
 			aux3.setTotal(aux3.getTotal()+aux3.getMora());
 		}
+	}
+	private void aplicarMoraF(Factura aux3) {
+		aux3.getMicliente().setAtraso((aux3.getMicliente().getAtraso()));
+		System.out.println(aux3.getMicliente().getAtraso());
+		int i = aux3.getMicliente().getAtraso();
+		if(i==2) {
+			aux3.setMora(aux3.getTotal()*0.1);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+			i++;
+		}else if(i==1) {
+			aux3.setMora(aux3.getTotal()*0.05);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+			i++;
+		}else if(i==0) {
+			aux3.setMora(aux3.getTotal()*0.05);
+			aux3.setTotal(aux3.getTotal()+aux3.getMora());
+			i++;
+		}
+		aux3.getMicliente().setAtraso(i);
+
 	}
 	public int difMeses(Factura factura){
 		
@@ -337,7 +360,10 @@ public class ListaFactura extends JDialog {
 				fila[1]= factura.getEmpleado().getNombre();
 			}
 			fila[2]=Altice.getInstance().fechaFormSimp(factura.getFecha());
-			fila[3]=factura.getTotal()+factura.getMora();
+			DecimalFormat d = new DecimalFormat("###.##");
+			;
+			
+			fila[3]=Double.valueOf(d.format(factura.getTotal()));
 			
 
 			
