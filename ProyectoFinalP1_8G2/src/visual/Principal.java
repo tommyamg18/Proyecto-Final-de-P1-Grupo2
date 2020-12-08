@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,9 +51,10 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setTitle("Sistema Altice ");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/images/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 952, 586);
-		
+		setLocationRelativeTo(null);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -195,6 +197,17 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_5.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Facturas Pagadas");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteFacturasPagadasoNo reporte2 = new ReporteFacturasPagadasoNo();
+				reporte2.setModal(true);
+				reporte2.setLocationRelativeTo(null);
+				reporte2.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem_3);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
