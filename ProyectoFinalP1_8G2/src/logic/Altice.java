@@ -414,7 +414,7 @@ public class Altice implements Serializable{
 				login = true;
 			}
 		}
-		System.out.println(login);
+		//System.out.println(login);
 		return login;
 	}
 	public String fechaFormSimp(Date fecha){

@@ -142,12 +142,12 @@ public class Login extends JFrame {
 				char[] arrayC = passwordField.getPassword();
 				String pass = new String(arrayC);
 	      if(!txtUser.getText().equalsIgnoreCase("") && !(pass.equalsIgnoreCase(""))){
-	    		System.out.println(txtUser.getText());
+	    		//System.out.println(txtUser.getText());
 	    		//System.out.println(Altice.getInstance().getMiPersonal());
 
 				//if(Altice.getAdministrador().getCedula().equalsIgnoreCase("0") && Altice.getAdministrador().getPassword().equalsIgnoreCase("0")){
 				if(Altice.getInstance().confirmarLogin(txtUser.getText(), pass)){
-		    		System.out.println(txtUser.getText());
+		    		//System.out.println(txtUser.getText());
 
 					Principal frame = new Principal();
 					frame.setVisible(true);
