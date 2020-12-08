@@ -237,7 +237,7 @@ public class CrearPlan extends JDialog {
 			panel_internet.add(lblNewLabel_4);
 			
 			cmbVelSub = new JComboBox();
-			cmbVelSub.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "1.5 Mbps", "2 Mbps", "5 Mbps", "10 Mbps"}));
+			cmbVelSub.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "1.5 Mbps", "2 Mbps", "5 Mbps", "10 Mbps", "20 Mbps", "50 Mbps"}));
 			cmbVelSub.setBounds(154, 25, 151, 20);
 			panel_internet.add(cmbVelSub);
 			
@@ -246,7 +246,7 @@ public class CrearPlan extends JDialog {
 			panel_internet.add(lblNewLabel_5);
 			
 			cmbVelBaj = new JComboBox();
-			cmbVelBaj.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "3 Mbps", "5 Mbps", "15 Mbps", "25 Mbps", "50 Mbps"}));
+			cmbVelBaj.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "3 Mbps", "5 Mbps", "15 Mbps", "25 Mbps", "50 Mbps", "75 Mbps", "100 Mbps"}));
 			cmbVelBaj.setBounds(544, 25, 151, 20);
 			panel_internet.add(cmbVelBaj);
 			
