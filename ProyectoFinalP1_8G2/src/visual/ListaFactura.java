@@ -260,7 +260,7 @@ public class ListaFactura extends JDialog {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		System.out.println(aux.getMicliente().getAtraso());
 		Date date = simpleDateFormat.parse("2020-"+String.valueOf(f)+"-08");
-		f--;
+		f++;
 		aux.setFecha(date);
 		//FORCE
         
