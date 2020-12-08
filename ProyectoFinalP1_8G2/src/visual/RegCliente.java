@@ -66,8 +66,8 @@ public class RegCliente extends JDialog {
 			auxTitle="Modificar";
 		}
 		setTitle(auxTitle+" Cliente");
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 656, 430);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -197,7 +197,7 @@ public class RegCliente extends JDialog {
 				getRootPane().setDefaultButton(Agregar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

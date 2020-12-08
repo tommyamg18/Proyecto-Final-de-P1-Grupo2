@@ -196,7 +196,7 @@ public class ListaFactura extends JDialog {
 
 		
 			});
-			btnPrueba.setBounds(681, 66, 171, 41);
+			btnPrueba.setBounds(690, 65, 147, 29);
 			panel.add(btnPrueba);
 		}
 		{

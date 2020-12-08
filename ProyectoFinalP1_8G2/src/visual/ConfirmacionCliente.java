@@ -62,6 +62,7 @@ public class ConfirmacionCliente extends JDialog {
 		setResizable(false);
 		setTitle("Opciones de Clientes");
 		setBounds(100, 100, 471, 255);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -168,7 +169,7 @@ public class ConfirmacionCliente extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -187,6 +188,7 @@ public class ConfirmacionCliente extends JDialog {
 			txtCed.setEnabled(true);
 			txtCed.setEditable(true);
 			txtCed.setVisible(true);
+			lblCed.setVisible(true);
 			lblTitulo.setText("Digite Cedula de cliente que \n quiere ver consultar");
 		}
 	}
