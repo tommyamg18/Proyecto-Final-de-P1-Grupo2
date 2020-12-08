@@ -57,7 +57,7 @@ public class ListarPlan extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarPlan() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\listar.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarPlan.class.getResource("/images/logo.png")));
 		setTitle("Listado de Planes");
 		setBounds(100, 100, 657, 407);
 		getContentPane().setLayout(new BorderLayout());

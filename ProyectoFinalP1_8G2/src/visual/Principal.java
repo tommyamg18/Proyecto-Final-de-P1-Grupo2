@@ -332,5 +332,17 @@ public class Principal extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("\u00A1 Hola !");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(27, 45, 186, 46);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setIcon(new ImageIcon(Principal.class.getResource("/images/finalfondo.jpg")));
+		lblNewLabel_1.setBounds(0, -130, 926, 644);
+		panel.add(lblNewLabel_1);
 	}
 }

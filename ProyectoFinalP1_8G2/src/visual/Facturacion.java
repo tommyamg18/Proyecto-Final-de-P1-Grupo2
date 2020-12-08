@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -90,6 +91,7 @@ public class Facturacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public Facturacion(int mod, Cliente miCliente) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Facturacion.class.getResource("/images/logo.png")));
 		setTitle("Facturaci\u00F3n");
 		setBounds(100, 100, 1086, 688);
 		getContentPane().setLayout(new BorderLayout());

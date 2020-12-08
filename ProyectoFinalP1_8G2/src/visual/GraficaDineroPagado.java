@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ public class GraficaDineroPagado extends JFrame {
 
 	JPanel panel;
     public GraficaDineroPagado(){
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GraficaDineroPagado.class.getResource("/images/logo.png")));
         setTitle("Grafico Del Dinero Pagado");
         setSize(800,500);
         setLocationRelativeTo(null);

@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -69,6 +70,7 @@ public class ListaFactura extends JDialog {
 	public ListaFactura(String aux) {
 		this.cliente = Altice.getInstance().buscarCliente(aux);
 		this.aux=aux;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaFactura.class.getResource("/images/logo.png")));
 		setTitle("Listado de Facturas");
 		setResizable(false);
 		setBounds(100, 100, 862, 445);

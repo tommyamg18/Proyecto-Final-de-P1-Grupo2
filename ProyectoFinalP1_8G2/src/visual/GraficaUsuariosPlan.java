@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ import logic.Altice;
 public class GraficaUsuariosPlan extends JFrame {
 	JPanel panel;
     public GraficaUsuariosPlan(){
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GraficaUsuariosPlan.class.getResource("/images/logo.png")));
         setTitle("Grafico De La Cantidad De Usuarios Por Cada Plan");
         setSize(800,500);
         setLocationRelativeTo(null);

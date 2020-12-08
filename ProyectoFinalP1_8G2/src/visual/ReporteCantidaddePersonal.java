@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -48,6 +49,7 @@ public class ReporteCantidaddePersonal extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReporteCantidaddePersonal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReporteCantidaddePersonal.class.getResource("/images/logo.png")));
 		setTitle("Reporte de Cantidad del Personal");
 		setBounds(100, 100, 528, 142);
 		getContentPane().setLayout(new BorderLayout());

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -88,6 +89,7 @@ public class PagarFact extends JDialog {
 	 */
 	public PagarFact( Factura miFac) {
 		this.miFac=miFac;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PagarFact.class.getResource("/images/logo.png")));
 		setTitle("Pago Factura");
 		setBounds(100, 100, 1098, 388);
 		getContentPane().setLayout(new BorderLayout());

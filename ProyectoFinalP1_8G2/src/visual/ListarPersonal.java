@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 public class ListarPersonal extends JDialog {
 
@@ -63,6 +64,7 @@ public class ListarPersonal extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarPersonal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarPersonal.class.getResource("/images/logo.png")));
 		setTitle("Listado de Personal");
 		setBounds(100, 100, 782, 453);
 		getContentPane().setLayout(new BorderLayout());

@@ -4,6 +4,7 @@ package visual;
 import java.awt.BorderLayout;
 
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -85,8 +86,8 @@ public class CrearPlan extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearPlan(int mod,Plan viejoPlan, Cliente miCliente) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearPlan.class.getResource("/images/logo.png")));
 		this.viejoPlan=viejoPlan;
-		//setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\wilbe\\Downloads\\137349-200.png"));
 		String titulo="Creaci\u00F3n de planeas";
 		String canVer="Cancelar";
 		if(viejoPlan!=null &mod==1) {

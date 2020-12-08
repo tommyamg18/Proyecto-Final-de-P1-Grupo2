@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 
 
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -59,6 +60,7 @@ public class ConfirmacionCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	public ConfirmacionCliente(int i) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ConfirmacionCliente.class.getResource("/images/logo.png")));
 		setResizable(false);
 		setTitle("Opciones de Clientes");
 		setBounds(100, 100, 471, 255);

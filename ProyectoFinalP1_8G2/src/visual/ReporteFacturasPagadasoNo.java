@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -47,6 +48,7 @@ public class ReporteFacturasPagadasoNo extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReporteFacturasPagadasoNo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReporteFacturasPagadasoNo.class.getResource("/images/logo.png")));
 		setTitle("Reporte de Facturas ");
 		setBounds(100, 100, 553, 140);
 		getContentPane().setLayout(new BorderLayout());
