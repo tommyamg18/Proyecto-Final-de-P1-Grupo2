@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -59,12 +60,15 @@ public class Principal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Clientes");
+		mnNewMenu.setIcon(new ImageIcon(Principal.class.getResource("/images/cliente.png")));
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
 		mnNewMenu.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar ");
+		mntmNewMenuItem_1.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
+
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListCliente lisClient = new ListCliente();
@@ -76,12 +80,15 @@ public class Principal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_1 = new JMenu("Facturaci\u00F3n");
+		mnNewMenu_1.setIcon(new ImageIcon(Principal.class.getResource("/images/facturacion.png")));
+
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Administrador")){
 		mnNewMenu_1.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Crear");
+		mntmNewMenuItem_2.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ConfirmacionCliente nue = new ConfirmacionCliente(0);
@@ -93,6 +100,8 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
+		mntmListar.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
+
 		mntmListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConfirmacionCliente nue = new ConfirmacionCliente(1);
@@ -105,12 +114,16 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(mntmListar);
 		
 		JMenu mnNewMenu_2 = new JMenu("Planes");
+		mnNewMenu_2.setIcon(new ImageIcon(Principal.class.getResource("/images/planes.png")));
+
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
 		mnNewMenu_2.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear");
+		mntmNewMenuItem_4.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
+
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				CrearPlan crearPlan = new CrearPlan(0,null,null);
@@ -122,6 +135,7 @@ public class Principal extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listar");
+		mntmNewMenuItem_5.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarPlan listarPlan = new ListarPlan();
@@ -133,12 +147,16 @@ public class Principal extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
 		JMenu mnNewMenu_3 = new JMenu("Personal");
+		mnNewMenu_3.setIcon(new ImageIcon(Principal.class.getResource("/images/personal.png")));
+
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
 		mnNewMenu_3.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar personal");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
+		mntmNewMenuItem_6.setIcon(new ImageIcon(Principal.class.getResource("/images/crear.png")));
+
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegPersonal regpersonal = new RegPersonal();
@@ -149,7 +167,8 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_6);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar personal");
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar ");
+		mntmNewMenuItem_7.setIcon(new ImageIcon(Principal.class.getResource("/images/listaricon.png")));
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarPersonal listpersonal = new ListarPersonal();
@@ -161,12 +180,15 @@ public class Principal extends JFrame {
 		mnNewMenu_3.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_4 = new JMenu("Estadisticas");
+		mnNewMenu_4.setIcon(new ImageIcon(Principal.class.getResource("/images/estadisticas.png")));
+
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
 		mnNewMenu_4.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu_4);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Estadistica #1");
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Cantidad de Usuarios por Plan");
+		mntmNewMenuItem_8.setIcon(new ImageIcon(Principal.class.getResource("/images/grafica.png")));
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GraficaUsuariosPlan grafica1 = new GraficaUsuariosPlan();
@@ -178,16 +200,22 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_8);
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Estadistica #2");
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Ingresos de las Facturas por Mes");
+		mntmNewMenuItem_9.setIcon(new ImageIcon(Principal.class.getResource("/images/grafica.png")));
+
 		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
 		JMenu mnNewMenu_5 = new JMenu("Reportes");
+		mnNewMenu_5.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte.png")));
+
 		/*if(!Altice.getLoginPersonal().getTipo().equalsIgnoreCase("Comercial")){
 		mnNewMenu_5.setEnabled(true);
 	    }*/
 		menuBar.add(mnNewMenu_5);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cantidad de Personal");
+		mntmNewMenuItem.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte2.png")));
+
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ReporteCantidaddePersonal reporte1 = new ReporteCantidaddePersonal();
@@ -199,6 +227,7 @@ public class Principal extends JFrame {
 		mnNewMenu_5.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Facturas Pagadas");
+		mntmNewMenuItem_3.setIcon(new ImageIcon(Principal.class.getResource("/images/reporte1.png")));
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ReporteFacturasPagadasoNo reporte2 = new ReporteFacturasPagadasoNo();
