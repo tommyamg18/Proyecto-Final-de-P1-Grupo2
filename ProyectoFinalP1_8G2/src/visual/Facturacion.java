@@ -339,7 +339,7 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						Factura aux = null;
 						String codFactura = txtCodFac.getText();
-						miCliente.setMisPlanes(cargarPlanes());
+						miCliente.setMisPlanes(cargarPlanesTotales(miCliente));
 						aux = new Factura (codFactura, miCliente, null, cargarPlanes(),total,true,Altice.getInstance().nunCon);
 						Altice.getInstance().nunCon++;
 						aux.setTotal(Double.valueOf(txtTotal.getText()));
@@ -446,6 +446,18 @@ public class Facturacion extends JDialog {
 				}
 			}
 			
+		}
+		
+		return aux;
+	}
+	public ArrayList<Plan> cargarPlanesTotales(Cliente miCliente) {
+		ArrayList<Plan> todos = miCliente.getMisPlanes();
+		ArrayList<Plan> aux =  new ArrayList<>();
+		for (Plan plan : todos) {
+			aux.add(plan);
+		}
+		for (Plan plan : cargarPlanes()) {
+			aux.add(plan);
 		}
 		
 		return aux;
