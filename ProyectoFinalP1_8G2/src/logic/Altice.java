@@ -1,6 +1,7 @@
 package logic;
                                                         
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
@@ -10,8 +11,12 @@ import java.util.Date;
 
 
 
-public class Altice {
+public class Altice implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1939787058676206905L;
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Factura> misFacturas;
@@ -20,6 +25,7 @@ public class Altice {
 	public static Cliente miCliente;
 	public static Factura factura;
 	private static Personal loginPersonal;
+	private static Personal administrador;
 	
 
 	public int planCod = 1;
@@ -36,6 +42,7 @@ public class Altice {
 		this.misPlanes = new ArrayList<>();
 		this.misFacturas = new ArrayList<>();
 		this.miPersonal = new ArrayList<>();
+		this.administrador = new Personal("0", "", "", "", "0", -1, "ADM");
 	}
 	
 	public static Altice getInstance() {
@@ -407,12 +414,21 @@ public class Altice {
 				login = true;
 			}
 		}
+		System.out.println(login);
 		return login;
 	}
 	public String fechaFormSimp(Date fecha){
 		SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
 		return formatoFecha.format(fecha);
 
+	}
+
+	public static Personal getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Personal administrador) {
+		this.administrador = administrador;
 	}	
 	
 	

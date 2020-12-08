@@ -1,10 +1,15 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Factura {
+public class Factura implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4486778712447281638L;
 	private String codFact;
 	private int nunCon;
 	public int getNunCon() {

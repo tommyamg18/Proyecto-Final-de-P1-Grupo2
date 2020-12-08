@@ -1,10 +1,15 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class Cliente {
+public class Cliente implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7644156816847692413L;
 	private String cedula;
 	private String nombre;
 	private String direccion;

@@ -1,7 +1,13 @@
 package logic;
 
-public class Administrativo extends Personal {
+import java.io.Serializable;
 
+public class Administrativo extends Personal implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2414546833548393578L;
 	private String puesto;
 	
 
@@ -11,12 +17,7 @@ public class Administrativo extends Personal {
 		this.puesto = puesto;
 	}
 
-	@Override
-	public double CalSalario() {
-		double salario = 0;
-		salario = salarioMes;
-		return salario;
-	}
+	
 
 
 	public String getPuesto() {

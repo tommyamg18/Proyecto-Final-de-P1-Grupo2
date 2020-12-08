@@ -1,7 +1,12 @@
 package logic;
 
+import java.io.Serializable;
 
-public class Plan {
+public class Plan implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8052856036085489103L;
 	private String codPlan;
 	private String nombre;
 	private String numero;

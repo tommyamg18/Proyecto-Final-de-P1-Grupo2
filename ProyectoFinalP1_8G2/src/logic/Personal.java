@@ -1,7 +1,13 @@
 package logic;
 
-public abstract class Personal {
+import java.io.Serializable;
 
+public class Personal implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6401532974104750163L;
 	protected String cedula;
 	protected String nombre;
 	protected String telefono;
@@ -79,6 +85,5 @@ public abstract class Personal {
 		this.tipo = tipo;
 	}
 
-	public abstract double CalSalario();
 	
 }	

@@ -1,7 +1,13 @@
 package logic;
 
-public class Comercial extends Personal {
+import java.io.Serializable;
 
+public class Comercial extends Personal implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6983120335345839125L;
 	private int cantventas;
 	
 	
@@ -12,12 +18,7 @@ public class Comercial extends Personal {
 	}
 
 
-	@Override
-	public double CalSalario() {
-		double salariototal = 0;
-		salariototal = (salarioMes + (cantventas*0.10));
-		return salariototal;
-	}
+	
 
 
 	public int getCantventas() {
