@@ -91,7 +91,7 @@ public class ListaFactura extends JDialog {
 				panel.add(scrollPane);
 				{	
 					modelo = new DefaultTableModel();
-					String[] headers = {"Codigo", "Empleado", "Fecha","# Contrato","Monto"};		
+					String[] headers = {"Codigo", "Empleado", "Fecha","# Contrato","Monto", "Pagado"};		
 					modelo.setColumnIdentifiers(headers);
 					
 					table = new JTable();
@@ -357,7 +357,7 @@ public class ListaFactura extends JDialog {
 			if(cliente.getCedula().equalsIgnoreCase(factura.getMicliente().getCedula())){
 			fila[0]=factura.getCodFact();
 			if(Altice.getLoginPersonal().getTipo().equalsIgnoreCase("ADM")) {
-			fila[1]= "Empreado #1";
+			fila[1]= "Empleado #1";
 			}else {
 				fila[1]= factura.getEmpleado().getNombre();
 			}
@@ -368,7 +368,11 @@ public class ListaFactura extends JDialog {
 			
 			fila[4]=Double.valueOf(d.format(factura.getTotal()));
 			
-			
+			String pago = "No";
+			if(factura.isPagada()) {
+			pago = "Si";
+			}
+			fila[5]= pago;
 
 			
 			modelo.addRow(fila);
