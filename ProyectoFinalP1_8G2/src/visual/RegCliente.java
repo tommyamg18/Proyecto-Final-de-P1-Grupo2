@@ -148,6 +148,7 @@ public class RegCliente extends JDialog {
 				txtCedula.setText(cliente.getCedula());
 				txtNombre.setText(cliente.getNombre());
 				txtDireccion.setText(cliente.getDireccion());
+				txtTelefono.setText(cliente.getTelefono());
 			}
 			if(i==0 & cedula!=null) {
 				txtCedula.setText(cedula);
@@ -171,7 +172,7 @@ public class RegCliente extends JDialog {
 							}
 							if(verificar==true) {
 								JOptionPane.showMessageDialog(null, "Cedula Duplicada", "Error", JOptionPane.ERROR_MESSAGE);
-								txtCedula.setText("_-__-");
+								txtCedula.setText("___-_______-_-");
 							}
 							else {
 								if(comprobacionaDatos()) {
@@ -192,6 +193,7 @@ public class RegCliente extends JDialog {
 							cliente.setCedula(txtCedula.getText());
 							cliente.setNombre(txtNombre.getText());
 							cliente.setDireccion(txtDireccion.getText());
+							cliente.setTelefono(txtTelefono.getText());
 							clean();
 							dispose();
 						}
@@ -222,7 +224,7 @@ public class RegCliente extends JDialog {
 
 	protected boolean comprobacionaDatos() {
 		boolean aux=true;
-		if(txtCedula.getText().equalsIgnoreCase("_-__-")) {
+		if(txtCedula.getText().equalsIgnoreCase("___-_______-_-")) {
 			aux=false;
 		}
 		if(txtNombre.getText().equalsIgnoreCase("")) {
@@ -231,16 +233,16 @@ public class RegCliente extends JDialog {
 		if(txtDireccion.getText().equalsIgnoreCase("")) {
 			aux=false;
 		}
-		if(txtTelefono.getText().equalsIgnoreCase("(_)-_-__")) {
+		if(txtTelefono.getText().equalsIgnoreCase("(___)-___-____")) {
 			aux=false;
 		}
 		return aux;
 	}
 
 	public void clean() {
-		txtCedula.setText("_-__-");
+		txtCedula.setText("___-_______-_-");
 		txtNombre.setText("");
 		txtDireccion.setText("");
-		txtTelefono.setText("(_)-_-__");
+		txtTelefono.setText("(___)-___-____");
 	}
 }

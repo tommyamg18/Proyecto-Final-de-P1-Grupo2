@@ -91,7 +91,7 @@ public class ListaFactura extends JDialog {
 				panel.add(scrollPane);
 				{	
 					modelo = new DefaultTableModel();
-					String[] headers = {"Codigo", "Empleado", "Fecha","Monto"};
+					String[] headers = {"Codigo", "Empleado", "Fecha","# Contrato","Monto"};		
 					modelo.setColumnIdentifiers(headers);
 					
 					table = new JTable();
@@ -364,8 +364,10 @@ public class ListaFactura extends JDialog {
 			fila[2]=Altice.getInstance().fechaFormSimp(factura.getFecha());
 			DecimalFormat d = new DecimalFormat("###.##");
 			;
+            fila[3]=factura.getNunCon();
 			
-			fila[3]=Double.valueOf(d.format(factura.getTotal()));
+			fila[4]=Double.valueOf(d.format(factura.getTotal()));
+			
 			
 
 			
