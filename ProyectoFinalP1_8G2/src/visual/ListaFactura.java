@@ -186,10 +186,12 @@ public class ListaFactura extends JDialog {
 			btnPrueba.setEnabled(false);
 			btnPrueba.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					if(aux2!=null) {
 					crearFac();
 					cargarTabla();	
 					btnPrueba.setEnabled(false);
 					btnModificar.setEnabled(false);
+					}
 				}
 
 		
@@ -214,10 +216,15 @@ public class ListaFactura extends JDialog {
 				btnModificar.setEnabled(false);
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						if(!aux2.isPagada()) {
 						PagarFact newp = new PagarFact(aux2);
 						newp.setVisible(true);
 						btnPrueba.setEnabled(false);
 						btnModificar.setEnabled(false);
+						cargarTabla();	
+						}else {
+							JOptionPane.showMessageDialog(null, "El Pago que desea hacer ya fue realizado, elija otra factura.", "Información de Pago", JOptionPane.INFORMATION_MESSAGE);
+						}
 						}
 				});
 				buttonPane.add(btnModificar);
@@ -235,7 +242,6 @@ public class ListaFactura extends JDialog {
 
 	}
 	public void crearFac() {
-		
 		Factura aux = new Factura("F-"+Altice.getInstance().getFactCod(), aux2.getMicliente(), aux2.getEmpleado(), aux2.getMisPlanes(), aux2.getTotal(),false,aux2.getNunCon());
 		Altice.getInstance().crearFactura(aux);
 	}
@@ -308,7 +314,7 @@ public class ListaFactura extends JDialog {
 			fila[0]=factura.getCodFact();
 			fila[1]= "Empleado 1";
 			fila[2]=Altice.getInstance().fechaFormSimp(factura.getFecha());
-			
+			fila[3]=factura.getTotal()+factura.getMora();
 			//	fila[1]=factura.getEmpleado().getNombre();
 			
 

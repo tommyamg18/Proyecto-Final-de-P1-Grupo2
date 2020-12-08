@@ -7,14 +7,19 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
+
+import com.sun.glass.events.KeyEvent;
 
 import logic.Altice;
 import logic.Cliente;
@@ -329,7 +334,7 @@ public class CrearPlan extends JDialog {
 			panel_cable.add(lblNewLabel_9);
 			
 			cmbCanal = new JComboBox();
-			cmbCanal.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "69", "119", "170\t", "193", "241", "284"}));
+			cmbCanal.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "69", "119", "170", "193", "241", "284"}));
 			cmbCanal.setBounds(177, 25, 142, 20);
 			panel_cable.add(cmbCanal);
 			
@@ -400,6 +405,15 @@ public class CrearPlan extends JDialog {
 				btnCrear = new JButton("Crear");
 				btnCrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(comprobarLetra()) {
+						
+							JOptionPane.showMessageDialog(null, "Precio de Plan solo pueden ser numeros", "Error", JOptionPane.ERROR_MESSAGE);
+						
+						}else if(chckbxInternet.isSelected()==false & chckbxVoz.isSelected()==false&chckbxCable.isSelected()==false) {
+					    
+							JOptionPane.showMessageDialog(null, "Compruebe datos suministrados", "Error", JOptionPane.ERROR_MESSAGE);
+						
+						}else if(!txtPrecioPlan.getText().equalsIgnoreCase("")) {
 						Plan aux = null;
 						String codPlan = txtCodPlan.getText();
 						String nombre = txtNombre.getText();
@@ -434,6 +448,9 @@ public class CrearPlan extends JDialog {
                          Altice.getInstance().crearPlan(aux);
  					     JOptionPane.showMessageDialog(null, "Plan registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                          clear();
+						}else {
+	 					     JOptionPane.showMessageDialog(null, "Compruebe datos suministrados", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				});
 				btnCrear.setActionCommand("OK");
@@ -443,7 +460,7 @@ public class CrearPlan extends JDialog {
 
 			}
 			{
-				JButton btnCancelar = new JButton(canVer);
+				btnCancelar = new JButton(canVer);
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -527,6 +544,16 @@ public class CrearPlan extends JDialog {
 	
 	}
 
+	protected boolean comprobarLetra() {
+		boolean aux=false;
+		for (char c: txtPrecioPlan.getText().toCharArray ()) { 
+			if(Character.isLetter(c)) {
+				aux=true;
+			}
+		}
+		return aux;
+	}
+
 	private void modifCant() {
 		for(int i=0; i<cmbVelSub.getItemCount();i++) {
 		if(viejoPlan.getVelocidadSubida()==(cmbVelSub.getItemAt(i))) {
@@ -554,7 +581,7 @@ public class CrearPlan extends JDialog {
       txtCodPlan.setText("P-"+Altice.getInstance().getPlanCod());
       txtNombre.setText("");
 	  txtNumero.setText("");
-	  txtPrecioPlan.setText("");
+	  txtPrecioPlan.setText("0");
 	  cmbVelSub.setSelectedIndex(0);
 	  cmbVelBaj.setSelectedIndex(0);
 	  cmbCanal.setSelectedIndex(0);
@@ -566,13 +593,7 @@ public class CrearPlan extends JDialog {
 	  chckbxCable.setSelected(false);
 	  panel_internet.setVisible(false);
 	  panel_voz.setVisible(false);
-	  panel_cable.setVisible(false);
-
-
-
-		
-
-      
+	  panel_cable.setVisible(false);      
 	}
 	public void cambiarNombre() {
 	if(chckbxCable.isSelected() && !chckbxVoz.isSelected() && !chckbxInternet.isSelected()) {

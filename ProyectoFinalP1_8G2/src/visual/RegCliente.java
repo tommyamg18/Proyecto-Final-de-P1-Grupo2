@@ -160,14 +160,19 @@ public class RegCliente extends JDialog {
 							}
 							if(verificar==true) {
 								JOptionPane.showMessageDialog(null, "Cedula Duplicada", "Error", JOptionPane.ERROR_MESSAGE);
-								txtCedula.setText("");
+								txtCedula.setText("___-_______-_");
 							}
 							else {
+								if(comprobacionaDatos()) {
 								Cliente newCliente = new Cliente(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
 								Altice.getInstance().insertarCliente(newCliente);
 								Facturacion newFact = new Facturacion(0,newCliente);
 								newFact.setVisible(true);
 								dispose();
+								}else {
+									JOptionPane.showMessageDialog(null, "Comprobar que todos los datos fueron llenados", "Error", JOptionPane.ERROR_MESSAGE);
+									clean();
+								}
 							}
 					}else if(i==1) {
 						int option = JOptionPane.showConfirmDialog(null, "Esta seguro que desea actualizar la informacion del cliente seleccionado", "Confirmacion", JOptionPane.WARNING_MESSAGE);
@@ -204,10 +209,27 @@ public class RegCliente extends JDialog {
 		}
 	}
 
+	protected boolean comprobacionaDatos() {
+		boolean aux=true;
+		if(txtCedula.getText().equalsIgnoreCase("___-_______-_")) {
+			aux=false;
+		}
+		if(txtNombre.getText().equalsIgnoreCase("")) {
+			aux=false;
+		}
+		if(txtDireccion.getText().equalsIgnoreCase("")) {
+			aux=false;
+		}
+		if(txtTelefono.getText().equalsIgnoreCase("(___)-___-____")) {
+			aux=false;
+		}
+		return aux;
+	}
+
 	public void clean() {
-		txtCedula.setText("");
+		txtCedula.setText("___-_______-_");
 		txtNombre.setText("");
 		txtDireccion.setText("");
-		txtTelefono.setText("");
+		txtTelefono.setText("(___)-___-____");
 	}
 }

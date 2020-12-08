@@ -309,9 +309,13 @@ public class Facturacion extends JDialog {
 				JButton btnNewButton = new JButton("Detalle");
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(cbxDetalle.getItemCount()>0) {
 						Plan miPlan=Altice.getInstance().consultarPlan(cbxDetalle.getSelectedItem().toString());
 						CrearPlan newPlan = new CrearPlan(1,miPlan, null);
 						newPlan.setVisible(true);
+						}else {
+							JOptionPane.showMessageDialog(null, "Debe colocar almenos un plan a facturar para obtener el detalle ", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				});
 				btnNewButton.setBounds(590, 497, 171, 41);

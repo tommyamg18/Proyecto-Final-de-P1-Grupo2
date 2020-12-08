@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 
 
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
 public class ConfirmacionCliente extends JDialog {
 
 	/**
@@ -34,7 +36,9 @@ public class ConfirmacionCliente extends JDialog {
 	 * 
 	 */
 	private final JPanel contentPanel = new JPanel();
-	private JFormattedTextField textField;
+	private JFormattedTextField txtCed;
+	private JLabel lblCed;
+	private JLabel lblTitulo;
 	private JRadioButton rdbtnExistente;
 	private JRadioButton rdbtnNuevo;
 
@@ -57,7 +61,7 @@ public class ConfirmacionCliente extends JDialog {
 	public ConfirmacionCliente(int i) {
 		setResizable(false);
 		setTitle("Opciones de Clientes");
-		setBounds(100, 100, 492, 328);
+		setBounds(100, 100, 471, 255);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -65,51 +69,63 @@ public class ConfirmacionCliente extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Opciones de Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(11, 0, 460, 221);
+		panel.setBounds(11, 0, 441, 167);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Seleccionar tipo de Cliente");
-		lblNewLabel.setBounds(53, 46, 338, 33);
-		panel.add(lblNewLabel);
+		lblTitulo = new JLabel("Seleccionar tipo de Cliente");
+		lblTitulo.setBounds(20, 31, 338, 33);
+		panel.add(lblTitulo);
 		
-		textField = new JFormattedTextField((AbstractFormatter) null);
+		txtCed = new JFormattedTextField((AbstractFormatter) null);
 		try {
 			MaskFormatter formatoCedula= new MaskFormatter("###-#######-#");
 			formatoCedula.setPlaceholderCharacter('_');
-			textField = new JFormattedTextField(formatoCedula);			
+			txtCed = new JFormattedTextField(formatoCedula);
+			txtCed.setVisible(false);
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		textField.setEditable(false);
-		textField.setBounds(104, 159, 236, 39);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtCed.setEditable(false);
+		txtCed.setBounds(199, 104, 236, 39);
+		panel.add(txtCed);
+		txtCed.setColumns(10);
 		
 		rdbtnNuevo = new JRadioButton("Nuevo");
 		rdbtnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rdbtnNuevo.setSelected(true);
 				rdbtnExistente.setSelected(false);
-				textField.setEditable(false);
+				txtCed.setEditable(false);
+				txtCed.setVisible(false);
+				lblCed.setVisible(false);
+
 			}
 		});
 		rdbtnNuevo.setSelected(true);
-		rdbtnNuevo.setBounds(271, 90, 167, 41);
+		rdbtnNuevo.setBounds(268, 62, 167, 41);
 		panel.add(rdbtnNuevo);
 		
-		rdbtnExistente = new JRadioButton("Existente");
+		rdbtnExistente = new JRadioButton("Existentente");
 		rdbtnExistente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rdbtnNuevo.setSelected(false);
 				rdbtnExistente.setSelected(true);
-				textField.setEditable(true);
+				txtCed.setEditable(true);
+				txtCed.setVisible(true);
+				lblCed.setVisible(true);
 			}
 		});
-		rdbtnExistente.setBounds(63, 90, 184, 41);
+		rdbtnExistente.setBounds(57, 62, 190, 41);
 		panel.add(rdbtnExistente);
+		
+		lblCed = new JLabel("Digite C\u00E9dula:");
+		lblCed.setVisible(false);
+		lblCed.setBounds(20, 104, 173, 33);
+		panel.add(lblCed);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -118,14 +134,14 @@ public class ConfirmacionCliente extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						if(i==0) {
 						if(rdbtnExistente.isSelected()) {
-							Cliente miCliente = Altice.getInstance().buscarCliente(textField.getText());
+							Cliente miCliente = Altice.getInstance().buscarCliente(txtCed.getText());
 							if(miCliente!= null) {
 							Facturacion newFact = new Facturacion(0,miCliente);
 							newFact.setVisible(true);
 							dispose();
 							}else {
 								JOptionPane.showMessageDialog(null, "Cedula No encontrada, \nPor favor Verificar", "Error", JOptionPane.ERROR_MESSAGE);
-								textField.setText("");
+								txtCed.setText("");
 							}
 						}else if(rdbtnNuevo.isSelected()) {
 							RegCliente newClient = new RegCliente(0, null);
@@ -135,7 +151,7 @@ public class ConfirmacionCliente extends JDialog {
 					}
 					if(i==1) {
 						if(rdbtnExistente.isSelected()) {
-							Cliente miCliente = Altice.getInstance().buscarCliente(textField.getText());
+							Cliente miCliente = Altice.getInstance().buscarCliente(txtCed.getText());
 
 							if(miCliente!= null) {
 								ListaFactura newFact = new ListaFactura(miCliente.getCedula());
@@ -143,7 +159,7 @@ public class ConfirmacionCliente extends JDialog {
 							dispose();
 							}else {
 								JOptionPane.showMessageDialog(null, "Cedula No encontrada, \nPor favor Verificar", "Error", JOptionPane.ERROR_MESSAGE);
-								textField.setText("___-_______-_");
+								txtCed.setText("___-_______-_");
 							}
 						}}
 					}});
@@ -168,11 +184,10 @@ public class ConfirmacionCliente extends JDialog {
 			rdbtnNuevo.setEnabled(false);
 			rdbtnExistente.setSelected(true);
 			rdbtnExistente.setVisible(false);
-			textField.setEnabled(true);
-			textField.setEditable(true);
-			lblNewLabel.setText("Digite Cedula de cliente que \n quiere ver consultar");
+			txtCed.setEnabled(true);
+			txtCed.setEditable(true);
+			lblTitulo.setText("Digite Cedula de cliente que \n quiere ver consultar");
 		}
 	}
-	
 }
 

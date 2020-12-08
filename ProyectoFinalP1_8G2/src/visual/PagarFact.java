@@ -62,9 +62,9 @@ public class PagarFact extends JDialog {
     private ArrayList<String> Facturar = new ArrayList<>();
 	private ArrayList<String> FacturarId = new ArrayList<>();
 	private double total=0;
-	public Plan aux=null;
- 	ArrayList<Plan> plan = new ArrayList<>();
+ 	private ArrayList<Plan> plan = new ArrayList<>();
  	private JTextField txtTotal;
+ 	private Factura miFac;
  	private JTextField txtISC;
  	private JTextField txtITBIS;
  	private JTextField txtCDS;
@@ -87,6 +87,7 @@ public class PagarFact extends JDialog {
 	 * Create the dialog.
 	 */
 	public PagarFact( Factura miFac) {
+		this.miFac=miFac;
 		setTitle("Pago Factura");
 		setBounds(100, 100, 1098, 388);
 		getContentPane().setLayout(new BorderLayout());
@@ -281,6 +282,6 @@ public class PagarFact extends JDialog {
 			txtISC.setText(String.valueOf(Double.valueOf(d.format(total*0.10))));
 	}
 	private void clean() {
-		txtCodFac.setText("F-"+Altice.getInstance().getFactCod());		
+		txtCodFac.setText(miFac.getCodFact());		
 		}
 }
